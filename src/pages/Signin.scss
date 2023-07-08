@@ -1,0 +1,65 @@
+.sign-container{
+    padding: 50px 25px 25px 25px;
+    background: var(--background-color);
+    align-items: center;
+    height: 100%;
+    color: var(--text-color);
+
+    ion-img{
+        width: 80px;
+        height: auto;
+    }
+
+    h1{
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: var(--text-color);
+    }
+
+    p{
+        margin-bottom: 45px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--tab-text-color);
+    }
+
+    form{
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .label{
+            margin: 20px 0 5px 0;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+    }
+}
+
+
+ion-input.sc-ion-input-md-s.md.input-fill-outline{
+    --border-radius: 15px;
+    --width: 100%
+    --color: var(--text-color);
+    margin: 7px 0;
+}
+
+.submit{
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    min-height: 45px;
+    text-transform: capitalize;
+    --background: var(--primary-color);
+    --box-shadow: none;
+}
+
+.forgotPassword{
+    margin: 0 auto;
+    font-size: 0.7rem;
+    text-transform: capitalize;
+}
+
+
+

@@ -1,22 +1,31 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import { IonButton, IonContent, IonImg, IonPage, IonText } from '@ionic/react';
+import './Home.scss';
+import logo from '../assets/logo.png';
+
 
 const Home: React.FC = () => {
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
+        <div className='home-container column'>
+          <IonText class='greet'>
+            WELCOME T0
+          </IonText>
+          <IonImg src={logo} alt='l' class='logo'></IonImg>
+          <IonText class='desc'>
+            Experience the power of facial emotion recognition<br/>
+            <br/>
+            in our integrated video conferencing app
+          </IonText>
+          <IonButton
+            fill='outline'
+            shape='round'
+            routerLink='/sign'
+            className='getStarted'>
+            Get started
+        </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
