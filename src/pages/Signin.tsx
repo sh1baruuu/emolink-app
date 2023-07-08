@@ -9,10 +9,10 @@ import {
     IonModal, 
     IonText, 
     IonPage, 
-    IonToolbar, 
     IonFooter } from '@ionic/react';
 import './Signin.scss';
 import { useState } from 'react';
+import logo from '../assets/logoV2.png'
 
 const SignIn: React.FC = () => {
     
@@ -36,6 +36,7 @@ const SignIn: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className="sign-container column">
+                    <IonImg className='logo' src={logo} alt=''></IonImg>
                     <h1>Log In Now</h1>
                     <p>Please login to continue our app</p>
                     <form >
