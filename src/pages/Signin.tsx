@@ -13,12 +13,14 @@ import {
 import './Signin.scss';
 import { useState } from 'react';
 import logo from '../assets/logoV2.png'
+import { onSignIn } from '../utils/onSign'
 
 const SignIn: React.FC = () => {
     
     interface FormData { email: string, password: string};
 
-    const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
+    const data = { email: '', password: '' };
+    const [formData, setFormData] = useState<FormData>(data);
 
     const { email, password } = formData;
 
@@ -31,6 +33,13 @@ const SignIn: React.FC = () => {
         }))
     }
 
+    const handleSubmit = async (event: any)=>{
+        event.preventDefault();
+        const result = await onSignIn( email, password );
+        alert(result)
+
+        setFormData(data)
+    }
 
     return (
         <IonPage>
@@ -39,7 +48,7 @@ const SignIn: React.FC = () => {
                     <IonImg className='logo' src={logo} alt=''></IonImg>
                     <h1>Log In Now</h1>
                     <p>Please login to continue our app</p>
-                    <form >
+                    <form onSubmit={handleSubmit} >
                         <IonInput
                             shape='round'
                             type="email"
