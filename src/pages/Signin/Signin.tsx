@@ -7,21 +7,20 @@ import {
     IonFooter } from '@ionic/react';
 import './Signin.scss';
 import { useState } from 'react';
-import logo from '../assets/logoV2.png';
-import { onSignIn } from '../utils/onSign';
-import ForgotPasswordModal from '../components/ForgotPasswordModal';
-import { FormData } from '../utils/interface';
+import logo from '../../assets/logoV2.png';
+import { onSignIn } from '../../utils/onSign';
+import ForgotPasswordModal from '../../components/ForgotPasswordModal';
+import { SignInData } from '../../utils/interface';
 
 const SignIn: React.FC = () => {
 
     const data = { email: '', password: '' };
-    const [formData, setFormData] = useState<FormData>(data);
+    const [formData, setFormData] = useState<SignInData>(data);
     const { email, password } = formData;
-
 
     const handleOnInput = (e: any) => {
         let  {name, value} = e.target
-        setFormData((prevData:FormData)=> ({
+        setFormData((prevData:SignInData)=> ({
             ...prevData,
             [name]: value
         }))
@@ -85,11 +84,11 @@ const SignIn: React.FC = () => {
             <IonFooter className="ion-no-border">
                 <p className="footer">
                     Don't have an account? 
-                    <IonButton className='button' routerLink='/home' fill='clear' size='small'>SignUp</IonButton>
+                    <IonButton className='button' routerLink='/signup' fill='clear' size='small'>SignUp</IonButton>
                 </p>
             </IonFooter>
         </IonPage>
-    );
-};
+    )
+}
 
 export default SignIn;

@@ -21,7 +21,7 @@ const Home: React.FC = () => {
           <IonButton
             fill='outline'
             shape='round'
-            routerLink='/sign'
+            routerLink='/signin'
             className='getStarted'>
             Get started
         </IonButton>
