@@ -30,7 +30,7 @@ const SignUp: React.FC = () => {
 
 
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
-    const [step, setStep] = useState<number>(2)
+    const [step, setStep] = useState<number>(1)
     const userData: SignUpData = {
         userId: "",
         firstname: "",
@@ -58,22 +58,22 @@ const SignUp: React.FC = () => {
     } = userFormData
 
 
+ 
 
-    const handleDateChange = (event: CustomEvent) => {
-        const newDate = event.detail.value
-        // setDate(newDate)
-        handleDatePicker()
-    };
-
-    const handleOnInput = (e: any) => {
+    const handleChange = (e: any) => {
         let {name, value} = e.target
         setUserFormData((prevData:SignUpData) => ({
             ...prevData,
             [name]: value
         }))
+        if(name === "dateOfBirth"){
+            handleDatePicker()
+        }
     }
 
-    
+    const resetUserFormData = ()=>{
+        setUserFormData(userData)
+    }
 
     const handleDatePicker = () => {
         setShowDatePicker((prevState:boolean) => !prevState)
@@ -83,8 +83,7 @@ const SignUp: React.FC = () => {
         event.preventDefault()
         const result = await onSignIn( email, password )
         alert(result)
-
-        setUserFormData(userData)
+        resetUserFormData()
     }
 
     
@@ -97,11 +96,14 @@ const SignUp: React.FC = () => {
             if (lastname === ""){
                 setLastnameError(message)
             }
-            if (gender === ""){
-                setGenderError(message)
-            }
-            { firstname && lastname && gender && setStep(2)}
+            { firstname && lastname && setStep(2)}
         } else if ( next && step === 2){
+            if (gender === ""){
+                setBirthdayError(message)
+            }
+            if (interest.length < 3){
+                setBirthdayError(message)
+            }
             if (dateOfBirth === ""){
                 setBirthdayError(message)
             }
@@ -113,12 +115,7 @@ const SignUp: React.FC = () => {
         }
     }
 
-    const handleSelection = (event: any) => {
-        let { name, value} = event.target
-        setUserFormData((prev:SignUpData)=>({
-            ...prev, [name]: value === 'true'}
-        ))
-    }
+    
 
     return (
         <IonPage>
@@ -137,7 +134,7 @@ const SignUp: React.FC = () => {
                                 labelPlacement='floating'
                                 name='firstname'
                                 value={userFormData.firstname}
-                                onIonInput={handleOnInput}>
+                                onIonInput={handleChange}>
                             </IonInput>
                             <IonInput
                                 shape='round'
@@ -147,14 +144,14 @@ const SignUp: React.FC = () => {
                                 labelPlacement='floating'
                                 name='lastname'
                                 value={userFormData.lastname}
-                                onIonInput={handleOnInput}>
+                                onIonInput={handleChange}>
                             </IonInput>
                             
-                            <IonSelect fill='outline' value={userFormData.isVolunteer ? "true" : "false"} onIonChange={handleOnInput} shape='round' className='selection' label="Are you volunteer?" labelPlacement="floating">
+                            <IonSelect fill='outline' name='isVolunteer' value={userFormData.isVolunteer ? "true" : "false"} onIonChange={handleChange} shape='round' className='selection' label="Are you volunteer?" labelPlacement="floating">
                                 <IonSelectOption value='true'>Yes</IonSelectOption>
                                 <IonSelectOption value='false'>No</IonSelectOption>
                             </IonSelect>
-                            <IonButton type="button" shape="round" expand="full" size="large"  onClick={()=>goToStep(2, true)} className="next">
+                            <IonButton type="button" shape="round" expand="full" size="large"  onClick={()=> {goToStep(2, true)}} className="next">
                                 Next
                             </IonButton> </>
                         }
@@ -170,8 +167,7 @@ const SignUp: React.FC = () => {
                                 fill="outline"
                                 label='Birthday'
                                 labelPlacement='floating'
-                                name='birthday'
-                                value={userFormData.dateOfBirth}
+                                value={dateOfBirth}
                                 onClick={handleDatePicker}
                             >
                             </IonInput>
@@ -180,8 +176,9 @@ const SignUp: React.FC = () => {
                                     <IonDatetime 
                                         id="datetime"
                                         presentation='date'
+                                        name='dateOfBirth'
                                         value={userFormData.dateOfBirth}
-                                        onIonChange={handleDateChange}
+                                        onIonChange={handleChange}
                                         >
                                     </IonDatetime>
                                 </div>
@@ -191,6 +188,7 @@ const SignUp: React.FC = () => {
                                 shape='round' 
                                 className='selection' 
                                 label="Interest" 
+                                name='interest'
                                 multiple={true}
                                 value={userFormData.interest}
                                 labelPlacement="floating">
@@ -201,7 +199,7 @@ const SignUp: React.FC = () => {
                             <IonButton type="button" shape="round" expand="full" size="large" className="next"  onClick={()=>goToStep(3, true)}>
                                 Next
                             </IonButton> 
-                            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={()=>goToStep(2, false)}>
+                            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={()=>goToStep(1, false)}>
                                 Previous
                             </IonButton> 
                         </>
@@ -216,7 +214,7 @@ const SignUp: React.FC = () => {
                                 labelPlacement='floating'
                                 name='email'
                                 value={email}
-                                onIonInput={handleOnInput}>
+                                onIonInput={handleChange}>
                             </IonInput>
                             <IonInput
                                 shape='round'
@@ -226,7 +224,7 @@ const SignUp: React.FC = () => {
                                 labelPlacement='floating'
                                 name='password'
                                 value={password}
-                                onIonInput={handleOnInput}>
+                                onIonInput={handleChange}>
                             </IonInput>
                             <IonInput
                                 shape='round'
@@ -236,7 +234,7 @@ const SignUp: React.FC = () => {
                                 labelPlacement='floating'
                                 name='confirm'
                                 value={confirm}
-                                onIonInput={handleOnInput}>
+                                onIonInput={handleChange}>
                             </IonInput> 
                             <IonButton type="submit" shape="round" expand="full" size="large" className="submit">
                                 Sign Up
