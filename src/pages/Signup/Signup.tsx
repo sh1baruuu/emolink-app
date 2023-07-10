@@ -12,8 +12,11 @@ import {
 import './Signup.scss';
 import { useState } from 'react';
 import logo from '../../assets/logoV2.png';
-import { onSignIn } from '../../utils/onSign';
+import { onSignIn } from '../../utils/signin';
 import { SignUpData, userData } from '../../utils/interface';
+import { useHistory } from 'react-router';
+
+
 
 const SignUp: React.FC = () => {
 
@@ -25,7 +28,7 @@ const SignUp: React.FC = () => {
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError ] = useState("")
     const [confirmPasswordError, setConfirmPasswordError ] = useState("")
-
+    const history = useHistory()
 
 
 
@@ -57,11 +60,9 @@ const SignUp: React.FC = () => {
             confirm
     } = userFormData
 
-
- 
-
     const handleChange = (e: any) => {
         let {name, value} = e.target
+        
         setUserFormData((prevData:SignUpData) => ({
             ...prevData,
             [name]: value
@@ -101,13 +102,13 @@ const SignUp: React.FC = () => {
             if (gender === ""){
                 setBirthdayError(message)
             }
-            if (interest.length < 3){
+            if (interest.length >= 3){
                 setBirthdayError(message)
             }
             if (dateOfBirth === ""){
                 setBirthdayError(message)
             }
-            { dateOfBirth && setStep(num)}
+            { dateOfBirth && interest.length >= 3 && setStep(num)}
         } else if (!next && step === 2){
             setStep(num)
         } else {
@@ -115,7 +116,10 @@ const SignUp: React.FC = () => {
         }
     }
 
-    
+    const goToSignIn = () => {
+        resetUserFormData()
+        setStep(1)
+    }    
 
     return (
         <IonPage>
@@ -159,7 +163,7 @@ const SignUp: React.FC = () => {
                             <IonSelect fill='outline' value={userFormData.gender} shape='round' className='selection' label="Gender" labelPlacement="floating">
                                 <IonSelectOption value="male">Male</IonSelectOption>
                                 <IonSelectOption value="female">Female</IonSelectOption>
-                                <IonSelectOption value="other">Other</IonSelectOption>
+                                <IonSelectOption value="other">Non-Binary</IonSelectOption>
                             </IonSelect>
                             <IonInput
                                 readonly
@@ -167,7 +171,7 @@ const SignUp: React.FC = () => {
                                 fill="outline"
                                 label='Birthday'
                                 labelPlacement='floating'
-                                value={dateOfBirth}
+                                value={dateOfBirth.slice(0, 10)}
                                 onClick={handleDatePicker}
                             >
                             </IonInput>
@@ -191,15 +195,16 @@ const SignUp: React.FC = () => {
                                 name='interest'
                                 multiple={true}
                                 value={userFormData.interest}
+                                onIonChange={handleChange}
                                 labelPlacement="floating">
-                                    <IonSelectOption value="male">Male</IonSelectOption>
-                                    <IonSelectOption value="female">Female</IonSelectOption>
-                                    <IonSelectOption value="other">Other</IonSelectOption>
+                                    <IonSelectOption value="interestOne">One</IonSelectOption>
+                                    <IonSelectOption value="interestTwo">Two</IonSelectOption>
+                                    <IonSelectOption value="interestThree">Three</IonSelectOption>
                             </IonSelect>
                             <IonButton type="button" shape="round" expand="full" size="large" className="next"  onClick={()=>goToStep(3, true)}>
                                 Next
                             </IonButton> 
-                            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={()=>goToStep(1, false)}>
+                            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={()=>alert(JSON.stringify(userFormData))}>
                                 Previous
                             </IonButton> 
                         </>
@@ -253,7 +258,7 @@ const SignUp: React.FC = () => {
             <IonFooter className="ion-no-border">
                 <p className="footer">
                     Already have an account? 
-                    <IonButton className='button' routerLink='/signin' fill='clear' size='small'>SignIn</IonButton>
+                    <IonButton className='button' routerLink={'/signin'} onClick={goToSignIn}  fill='clear' size='small'>SignIn</IonButton>
                 </p>
             </IonFooter>
         </IonPage>

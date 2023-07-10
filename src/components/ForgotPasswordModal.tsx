@@ -8,7 +8,7 @@ import {
 } from '@ionic/react';
 import './ForgotPasswordModal.scss';
 import { useState } from 'react';
-import { onResetPassword } from '../utils/auth';
+import { onResetPassword } from '../utils/forgotPassword';
 import { ForgotPasswordModalProps } from '../utils/interface';
 import { key } from 'ionicons/icons';
 

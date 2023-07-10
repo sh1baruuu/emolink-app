@@ -2,9 +2,6 @@ import { sendPasswordResetEmail } from "firebase/auth"
 import { auth } from "./firebase"
 
 
-
-// FOR RESET PASSWORD
-
 export const onResetPassword = async (email: string): Promise<string | undefined> => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -27,5 +24,3 @@ export const onResetPassword = async (email: string): Promise<string | undefined
             }
     }
 }
-
-// FOR SIGN UP PAGE

@@ -8,7 +8,7 @@ import {
 import './Signin.scss';
 import { useState } from 'react';
 import logo from '../../assets/logoV2.png';
-import { onSignIn } from '../../utils/onSign';
+import { onSignIn } from '../../utils/signin';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal';
 import { SignInData } from '../../utils/interface';
 

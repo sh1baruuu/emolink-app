@@ -21,6 +21,7 @@ export const onSignIn = async (email: string, password: string): Promise<string>
     return error.code
     }
 }
+
 // export const onSignIn = async (email: string, password: string): Promise<void> => {
 //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
