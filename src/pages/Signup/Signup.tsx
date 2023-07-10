@@ -13,8 +13,10 @@ import './Signup.scss';
 import { useState } from 'react';
 import logo from '../../assets/logoV2.png';
 import { onSignIn } from '../../utils/signin';
-import { SignUpData, userData } from '../../utils/interface';
-import { useHistory } from 'react-router';
+import { SignUpData } from '../../utils/interface';
+import StepOne from './StepOne';
+import StepTwo from './StepTwo';
+import StepThree from './StepThree';
 
 
 
@@ -28,7 +30,7 @@ const SignUp: React.FC = () => {
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError ] = useState("")
     const [confirmPasswordError, setConfirmPasswordError ] = useState("")
-    const history = useHistory()
+
 
 
 
@@ -129,127 +131,11 @@ const SignUp: React.FC = () => {
                     <h1>Sign Up Now</h1>
                     <p>Please signup to continue our app</p>
                     <form onSubmit={handleSubmit} >
-                        { step === 1 && <>
-                            <IonInput
-                                shape='round'
-                                type="text"
-                                fill="outline"
-                                label='Firstname'
-                                labelPlacement='floating'
-                                name='firstname'
-                                value={userFormData.firstname}
-                                onIonInput={handleChange}>
-                            </IonInput>
-                            <IonInput
-                                shape='round'
-                                type="text"
-                                fill="outline"
-                                label='Lastname'
-                                labelPlacement='floating'
-                                name='lastname'
-                                value={userFormData.lastname}
-                                onIonInput={handleChange}>
-                            </IonInput>
-                            
-                            <IonSelect fill='outline' name='isVolunteer' value={userFormData.isVolunteer ? "true" : "false"} onIonChange={handleChange} shape='round' className='selection' label="Are you volunteer?" labelPlacement="floating">
-                                <IonSelectOption value='true'>Yes</IonSelectOption>
-                                <IonSelectOption value='false'>No</IonSelectOption>
-                            </IonSelect>
-                            <IonButton type="button" shape="round" expand="full" size="large"  onClick={()=> {goToStep(2, true)}} className="next">
-                                Next
-                            </IonButton> </>
-                        }
-                        { step === 2 && <>
-                            <IonSelect fill='outline' value={userFormData.gender} shape='round' className='selection' label="Gender" labelPlacement="floating">
-                                <IonSelectOption value="male">Male</IonSelectOption>
-                                <IonSelectOption value="female">Female</IonSelectOption>
-                                <IonSelectOption value="other">Non-Binary</IonSelectOption>
-                            </IonSelect>
-                            <IonInput
-                                readonly
-                                shape='round'
-                                fill="outline"
-                                label='Birthday'
-                                labelPlacement='floating'
-                                value={dateOfBirth.slice(0, 10)}
-                                onClick={handleDatePicker}
-                            >
-                            </IonInput>
-                            <IonModal isOpen={showDatePicker} className='date-modal' keepContentsMounted={true}>
-                                <div className='column'>
-                                    <IonDatetime 
-                                        id="datetime"
-                                        presentation='date'
-                                        name='dateOfBirth'
-                                        value={userFormData.dateOfBirth}
-                                        onIonChange={handleChange}
-                                        >
-                                    </IonDatetime>
-                                </div>
-                            </IonModal>
-                            <IonSelect 
-                                fill='outline' 
-                                shape='round' 
-                                className='selection' 
-                                label="Interest" 
-                                name='interest'
-                                multiple={true}
-                                value={userFormData.interest}
-                                onIonChange={handleChange}
-                                labelPlacement="floating">
-                                    <IonSelectOption value="interestOne">One</IonSelectOption>
-                                    <IonSelectOption value="interestTwo">Two</IonSelectOption>
-                                    <IonSelectOption value="interestThree">Three</IonSelectOption>
-                            </IonSelect>
-                            <IonButton type="button" shape="round" expand="full" size="large" className="next"  onClick={()=>goToStep(3, true)}>
-                                Next
-                            </IonButton> 
-                            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={()=>alert(JSON.stringify(userFormData))}>
-                                Previous
-                            </IonButton> 
-                        </>
-                        }
-
-                        { step === 3 && <>
-                            <IonInput
-                                shape='round'
-                                type="email"
-                                fill="outline"
-                                label='Email address'
-                                labelPlacement='floating'
-                                name='email'
-                                value={email}
-                                onIonInput={handleChange}>
-                            </IonInput>
-                            <IonInput
-                                shape='round'
-                                type="password"
-                                fill="outline"
-                                label='Password'
-                                labelPlacement='floating'
-                                name='password'
-                                value={password}
-                                onIonInput={handleChange}>
-                            </IonInput>
-                            <IonInput
-                                shape='round'
-                                type="password"
-                                fill="outline"
-                                label='Confirm password'
-                                labelPlacement='floating'
-                                name='confirm'
-                                value={confirm}
-                                onIonInput={handleChange}>
-                            </IonInput> 
-                            <IonButton type="submit" shape="round" expand="full" size="large" className="submit">
-                                Sign Up
-                            </IonButton>
-                            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={()=>goToStep(2, false)}>
-                                Previous
-                            </IonButton></>
-                        }
-
+                        { step === 1 && <StepOne firstname={firstname} lastname={lastname}  isVolunteer={isVolunteer} onChange={handleChange} next={()=>goToStep(2, true)}/> }
                         
+                        { step === 2 && <StepTwo gender={gender} birthday={dateOfBirth}  interest={interest} onChange={handleChange} onDatePicker={handleDatePicker} datePickerState={showDatePicker} next={()=>goToStep(3, true)} previous={()=>goToStep(1, false)} /> } 
+                        
+                        { step === 3 && <StepThree email={email} password={password} confirm={confirm} onChange={handleChange} next={()=>goToStep(2, false)} />}
                     </form>
                 </div>
 
