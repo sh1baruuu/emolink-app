@@ -11,7 +11,7 @@ const handleEmailError = async  (error: any): Promise<string> => {
     } else if (error.code === 'auth/network-request-failed') {
         return 'Please check your  internet connection and try again.'
     }
-
+    console.log("email")
     return ''
 }   
 
@@ -22,14 +22,16 @@ const handlePasswordError = async (error: any): Promise<HandlePasswordError> => 
         errorObj.passErr = 'Password cannot be empty.'
     } else if (error.code === 'auth/missing-password') {
         errorObj.passErr = 'Password cannot be empty.'
-    } else if (error.message === 'pass/length-failed') {
-        errorObj.passErr = 'Password should be at least 8 characters long.'
+    } else if (error.code === 'auth/missing-password') {
+        errorObj.passErr = 'Password cannot be empty.'
+    } else if (error.code === 'auth/weak-password') {
+        errorObj.passErr = 'Password should be at least 6 characters.'
     } else if (error.message === 'pass/test-failed') {
         errorObj.passErr = 'Password must contain an uppercase letter, one symbol, and one number.'
     } else if (error.message === 'pass/not-match') {
         errorObj.confErr = 'Confirm password did not match.'
     }
-
+    console.log("password")
     return errorObj
 }
 
@@ -40,8 +42,6 @@ const validatePassword = async (password: string, confirm: string) => {
         return 'pass/is-empty'
     } else if (!passwordRegex.test(password)) {
         return 'pass/test-failed'
-    } else if (password.length < 8) {
-        return 'pass/length-failed'
     } else if (password !== confirm) {
         return 'pass/not-match'
     } else {

@@ -24,6 +24,25 @@
         color: var(--tab-text-color);
     }
 
+        
+    p.errorMessage{
+        margin-top: 2px;
+        margin-bottom: 3px;
+        padding-left: 3px;
+        padding-top: 0;
+        transform: translate(0, -8px);
+        color: var(--error-color);
+        font-size: 0.6rem;
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .errorIcon{
+        margin-right: 3px;
+        transform: translate(0, 1px);
+    }
+
     form{
         padding: 0 10px;
         display: flex;
@@ -44,7 +63,7 @@ ion-input.sc-ion-input-md-s.md.input-fill-outline{
     --border-radius: 15px;
     --width: 100%
     --color: var(--text-color);
-    margin: 7px 0;
+    margin: 7px 0 2px 0;
 }
 
 .selection{
@@ -91,4 +110,32 @@ ion-input.sc-ion-input-md-s.md.input-fill-outline{
 }
 
 
+.error{
+    border: solid 2px var(--error-color);
+    animation: shake 0.2s ease-in-out 0s 2;
+    border-radius: 19px;
+}
+
+
+
+.label-text-wrapper {
+    background: white;
+    padding: 0 3px;
+    color: red;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0rem);
+    }
+    25% {
+        transform: translateX(0.5rem);
+    }
+    75% {
+        transform: translateX(-0.5rem);
+    }
+    100% {
+        transform: translateX(0rem);
+    }
+}
 

@@ -20,13 +20,17 @@ export interface SignUpData extends UserData{
     confirm: string
 }
 
+export interface ErrorList{ 
+    emailErr?: string, 
+    passErr?: string, 
+    confErr?: string
+}
+
 export interface SignUpResponse {
     uid: string, 
-    errorList: { 
-        emailErr?: string, 
-        passErr?: string, 
-        confErr?: string
-    }}
+    errorList: ErrorList,
+    success: boolean
+}
 
 export interface ForgotPasswordModalProps {
     isOpen?: boolean,

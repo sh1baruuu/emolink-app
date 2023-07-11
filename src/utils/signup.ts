@@ -27,11 +27,10 @@ export const onSignUp = async (email:string, password:string, confirm: string): 
         } 
 
         await updatePassword(currentUser, confirm)
-        
-        return { uid: id, errorList: {} }
+
+        return { uid: id, errorList: {}, success: true }
     }
     catch(error: any){
-
         if (currentUser !== undefined){
             deleteUser(currentUser)
         } 
@@ -44,6 +43,14 @@ export const onSignUp = async (email:string, password:string, confirm: string): 
         passErr = errorObj.passErr || '';
         confErr = errorObj.confErr || '';
 
-        return { uid: id, errorList: { emailErr, passErr, confErr } }
+        return { uid: id, errorList: { emailErr, passErr, confErr }, success: false }
+        
     }
+    // finally{
+    //     console.log("deleting user...")
+    //     if (id && currentUser){
+    //         await deleteUserAccountIfDataNotExist(id, currentUser)
+    //     }
+    // }
 }
+

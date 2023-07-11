@@ -8,7 +8,7 @@ import './Signup.scss';
 import { useState } from 'react'
 import logo from '../../assets/logoV2.png'
 import { onSignUp } from '../../utils/signup'
-import { SignUpData } from '../../utils/interface'
+import { ErrorList, SignUpData } from '../../utils/interface'
 import StepOne from './StepOne'
 import StepTwo from './StepTwo'
 import StepThree from './StepThree'
@@ -20,14 +20,14 @@ const SignUp: React.FC = () => {
     const [lastnameError, setLastnameError] = useState("")
     const [genderError, setGenderError] = useState("")
     const [birthdayError, setBirthdayError] = useState("")
-    const [emailError, setEmailError] = useState("")
-    const [passwordError, setPasswordError ] = useState("")
-    const [confirmPasswordError, setConfirmPasswordError ] = useState("")
+    const [emailError, setEmailError] = useState<string | undefined>("")
+    const [passwordError, setPasswordError ] = useState<string | undefined>("")
+    const [confirmError, setConfirmError ] = useState<string | undefined>("")
 
 
 
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
-    const [step, setStep] = useState<number>(3)
+    const [step, setStep] = useState<number>(1)
     const userData: SignUpData = {
         userId: "",
         firstname: "",
@@ -105,11 +105,18 @@ const SignUp: React.FC = () => {
     const goToSignIn = () => {
         resetUserFormData()
         setStep(1)
-    }    
+    }   
 
+    
+    const [buttonDisable, setButtonDisable] = useState(false)
     const [submitLoading, setSubmitLoading ] = useState<boolean>(false)
-    const [error, setError] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+    
+    const handleInputFocus = () => {
+        setEmailError('')
+        setPasswordError('')
+        setConfirmError('')
+        setButtonDisable(false)
+    }
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -117,18 +124,26 @@ const SignUp: React.FC = () => {
         const result = await onSignUp( email, password, confirm )
 
         const uid = result.uid
-    
-        if(!error){
+        const {emailErr, passErr, confErr} = result.errorList
+
+        if(result.success){
             await writeUserData(uid, userFormData)
             resetUserFormData()
             setStep(1)
             console.log(`User with id:${uid} added to database`)
         } else {
-            alert(JSON.stringify(result))
+            if (emailErr !== ''){
+                setEmailError(emailErr)
+            } else if (passErr){
+                setPasswordError(passErr)
+            } else if (confErr !== '') {
+                setConfirmError(confErr)
+            }
+            setButtonDisable(true)
         }
+        console.log(JSON.stringify(result.errorList))
+        console.log( emailErr + " " + passErr + " " +confErr)
         setSubmitLoading(false)
-
-
     }
 
     
@@ -173,7 +188,10 @@ const SignUp: React.FC = () => {
                                 onChange={handleChange} 
                                 previous={()=>goToStep(2, false)}
                                 emailErr={emailError} 
-                                passwordErr={passwordError}
+                                passErr={passwordError}
+                                confErr={confirmError}
+                                onFocus={handleInputFocus}
+                                isButtonDisable={buttonDisable}
                             />
                         }
 
