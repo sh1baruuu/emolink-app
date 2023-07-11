@@ -1,18 +1,16 @@
 import { 
     IonInput, 
     IonButton, 
-    IonSelect, 
-    IonSelectOption,
 } from '@ionic/react';
 import './Signup.scss';
 
 
-export interface Props {
+interface Props {
     email: string,
     password: string,
     confirm: string,
-    onChange: (e: any)=>void;
-    next: ()=>void;
+    onChange: (e: any)=>void,
+    next: ()=>void
 }
 
 

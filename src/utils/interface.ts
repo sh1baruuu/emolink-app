@@ -1,12 +1,13 @@
 
-export interface userData {
+export interface UserData {
     userId: string,
     firstname: string,
     lastname: string,
     gender: string,
     dateOfBirth: string,
     interest: string[],
-    isVolunteer: boolean
+    isVolunteer: boolean,
+    email: string, 
 }
 
 export interface SignInData { 
@@ -14,8 +15,7 @@ export interface SignInData {
     password: string
 }
 
-export interface SignUpData extends userData{ 
-    email: string, 
+export interface SignUpData extends UserData{ 
     password: string
     confirm: string
 }

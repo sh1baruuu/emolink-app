@@ -1,41 +1,30 @@
 import { 
     IonContent,
     IonImg, 
-    IonInput, 
     IonButton, 
     IonPage, 
-    IonSelect, 
-    IonSelectOption,
-    IonFooter, 
-    IonDatetime,
-    IonModal,} from '@ionic/react';
+    IonFooter} from '@ionic/react'
 import './Signup.scss';
-import { useState } from 'react';
-import logo from '../../assets/logoV2.png';
-import { onSignIn } from '../../utils/signin';
-import { SignUpData } from '../../utils/interface';
-import StepOne from './StepOne';
-import StepTwo from './StepTwo';
-import StepThree from './StepThree';
-
+import { useState } from 'react'
+import logo from '../../assets/logoV2.png'
+import { onSignUp } from '../../utils/signup'
+import { SignUpData } from '../../utils/interface'
+import StepOne from './StepOne'
+import StepTwo from './StepTwo'
+import StepThree from './StepThree'
+import { writeUserData } from '../../utils/firestore';
 
 
 const SignUp: React.FC = () => {
 
-    const [sent, setSent] = useState(false)
     const [firstnameError, setFirstnameError] = useState("")
     const [lastnameError, setLastnameError] = useState("")
     const [genderError, setGenderError] = useState("")
     const [birthdayError, setBirthdayError] = useState("")
-    const [emailError, setEmailError] = useState("")
-    const [passwordError, setPasswordError ] = useState("")
-    const [confirmPasswordError, setConfirmPasswordError ] = useState("")
-
-
 
 
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
-    const [step, setStep] = useState<number>(1)
+    const [step, setStep] = useState<number>(3)
     const userData: SignUpData = {
         userId: "",
         firstname: "",
@@ -50,7 +39,8 @@ const SignUp: React.FC = () => {
     }
     const [userFormData, setUserFormData] = useState<SignUpData>(userData)
 
-    const { userId,
+    const {
+            userId,
             firstname,
             lastname,
             gender,
@@ -63,8 +53,7 @@ const SignUp: React.FC = () => {
     } = userFormData
 
     const handleChange = (e: any) => {
-        let {name, value} = e.target
-        
+        let {name, value} = e.target    
         setUserFormData((prevData:SignUpData) => ({
             ...prevData,
             [name]: value
@@ -81,16 +70,8 @@ const SignUp: React.FC = () => {
     const handleDatePicker = () => {
         setShowDatePicker((prevState:boolean) => !prevState)
     }
-
-    const handleSubmit = async (event: any) => {
-        event.preventDefault()
-        const result = await onSignIn( email, password )
-        alert(result)
-        resetUserFormData()
-    }
-
     
-    function goToStep(num: number, next:boolean){
+    const goToStep = (num: number, next:boolean) => {
         const message = 'This field cannot be empty'
         if ( next && step === 1){
             if (firstname === ""){
@@ -123,6 +104,32 @@ const SignUp: React.FC = () => {
         setStep(1)
     }    
 
+    const [submitLoading, setSubmitLoading ] = useState<boolean>(false)
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+        setSubmitLoading(true)
+        const result = await onSignUp( email, password, confirm )
+
+        const uid = result.uid
+        const error = result.error
+    
+        if(!error){
+            await writeUserData(uid, userFormData)
+            resetUserFormData()
+            setStep(1)
+            console.log(`User with id:${uid} added to database`)
+        } else {
+            alert(error)
+        }
+        setSubmitLoading(false)
+
+
+    }
+
+    
+    
+
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -130,21 +137,55 @@ const SignUp: React.FC = () => {
                     <IonImg className='logo' src={logo} alt=''></IonImg>
                     <h1>Sign Up Now</h1>
                     <p>Please signup to continue our app</p>
+                    { submitLoading && "Loading..."}
                     <form onSubmit={handleSubmit} >
-                        { step === 1 && <StepOne firstname={firstname} lastname={lastname}  isVolunteer={isVolunteer} onChange={handleChange} next={()=>goToStep(2, true)}/> }
+
+                        { step === 1 && 
+                            <StepOne 
+                                firstname={firstname} 
+                                lastname={lastname}  
+                                isVolunteer={isVolunteer} 
+                                onChange={handleChange} 
+                                next={()=>goToStep(2, true)}
+                            /> 
+                        }
+
+                        { step === 2 && 
+                            <StepTwo 
+                                gender={gender} 
+                                birthday={dateOfBirth}  
+                                interest={interest} 
+                                onChange={handleChange} 
+                                onDatePicker={handleDatePicker} 
+                                datePickerState={showDatePicker} 
+                                next={()=>goToStep(3, true)} 
+                                previous={()=>goToStep(1, false)} 
+                            />
+                        } 
                         
-                        { step === 2 && <StepTwo gender={gender} birthday={dateOfBirth}  interest={interest} onChange={handleChange} onDatePicker={handleDatePicker} datePickerState={showDatePicker} next={()=>goToStep(3, true)} previous={()=>goToStep(1, false)} /> } 
-                        
-                        { step === 3 && <StepThree email={email} password={password} confirm={confirm} onChange={handleChange} next={()=>goToStep(2, false)} />}
+                        { step === 3 && 
+                            <StepThree 
+                                email={email} 
+                                password={password} 
+                                confirm={confirm} 
+                                onChange={handleChange} 
+                                next={()=>goToStep(2, false)} 
+                            />
+                        }
+
                     </form>
                 </div>
-
             </IonContent>
-
             <IonFooter className="ion-no-border">
                 <p className="footer">
                     Already have an account? 
-                    <IonButton className='button' routerLink={'/signin'} onClick={goToSignIn}  fill='clear' size='small'>SignIn</IonButton>
+                    <IonButton 
+                        className='button'  
+                        routerLink={'/signin'} 
+                        onClick={goToSignIn}  
+                        fill='clear' size='small'>
+                            SignIn
+                    </IonButton>
                 </p>
             </IonFooter>
         </IonPage>
