@@ -20,7 +20,21 @@ export interface SignUpData extends UserData{
     confirm: string
 }
 
+export interface SignUpResponse {
+    uid: string, 
+    errorList: { 
+        emailErr?: string, 
+        passErr?: string, 
+        confErr?: string
+    }}
+
 export interface ForgotPasswordModalProps {
     isOpen?: boolean,
     toggle?: ()=>void;
 }
+
+export interface HandlePasswordError{ 
+    passErr?: string,
+    confErr?: string 
+}
+

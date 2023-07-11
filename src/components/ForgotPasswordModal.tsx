@@ -6,7 +6,7 @@ import {
     IonItem, 
     IonModal, 
 } from '@ionic/react';
-import './ForgotPasswordModal.scss';
+import './components.scss';
 import { useState } from 'react';
 import { onResetPassword } from '../utils/forgotPassword.utils';
 import { ForgotPasswordModalProps } from '../utils/interface';

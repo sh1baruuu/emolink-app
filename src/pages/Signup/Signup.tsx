@@ -14,13 +14,16 @@ import StepTwo from './StepTwo'
 import StepThree from './StepThree'
 import { writeUserData } from '../../utils/firestore';
 
-
 const SignUp: React.FC = () => {
 
     const [firstnameError, setFirstnameError] = useState("")
     const [lastnameError, setLastnameError] = useState("")
     const [genderError, setGenderError] = useState("")
     const [birthdayError, setBirthdayError] = useState("")
+    const [emailError, setEmailError] = useState("")
+    const [passwordError, setPasswordError ] = useState("")
+    const [confirmPasswordError, setConfirmPasswordError ] = useState("")
+
 
 
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
@@ -105,6 +108,8 @@ const SignUp: React.FC = () => {
     }    
 
     const [submitLoading, setSubmitLoading ] = useState<boolean>(false)
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -112,7 +117,6 @@ const SignUp: React.FC = () => {
         const result = await onSignUp( email, password, confirm )
 
         const uid = result.uid
-        const error = result.error
     
         if(!error){
             await writeUserData(uid, userFormData)
@@ -120,7 +124,7 @@ const SignUp: React.FC = () => {
             setStep(1)
             console.log(`User with id:${uid} added to database`)
         } else {
-            alert(error)
+            alert(JSON.stringify(result))
         }
         setSubmitLoading(false)
 
@@ -128,8 +132,6 @@ const SignUp: React.FC = () => {
     }
 
     
-    
-
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -169,7 +171,9 @@ const SignUp: React.FC = () => {
                                 password={password} 
                                 confirm={confirm} 
                                 onChange={handleChange} 
-                                next={()=>goToStep(2, false)} 
+                                previous={()=>goToStep(2, false)}
+                                emailErr={emailError} 
+                                passwordErr={passwordError}
                             />
                         }
 

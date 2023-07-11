@@ -56,3 +56,17 @@ ion-input.sc-ion-input-md-s.md.input-fill-outline{
         text-transform: capitalize;
     }
 }
+
+.errorMessage{
+    margin-top: 2px;
+    padding-left: 3px;
+    color: var(--error-color);
+    font-size: 0.6rem;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+}
+
+.errorIcon{
+    margin-right: 4px;
+}

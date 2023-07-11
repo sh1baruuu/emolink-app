@@ -3,6 +3,7 @@ import {
     IonButton, 
 } from '@ionic/react';
 import './Signup.scss';
+import InputErrorMessage from '../../components/InputErrorMessage';
 
 
 interface Props {
@@ -10,11 +11,13 @@ interface Props {
     password: string,
     confirm: string,
     onChange: (e: any)=>void,
-    next: ()=>void
+    previous: ()=>void,
+    emailErr: any,
+    passwordErr: any
 }
 
 
-const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, next}) => {
+const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, previous, emailErr, passwordErr}) => {
 
     return (
         <>
@@ -28,6 +31,7 @@ const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, next})
                 value={email}
                 onIonInput={onChange}>
             </IonInput>
+            <InputErrorMessage message={emailErr} />
             <IonInput
                 shape='round'
                 type="password"
@@ -38,6 +42,7 @@ const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, next})
                 value={password}
                 onIonInput={onChange}>
             </IonInput>
+            <InputErrorMessage message={passwordErr} />
             <IonInput
                 shape='round'
                 type="password"
@@ -51,7 +56,7 @@ const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, next})
             <IonButton type="submit" shape="round" expand="full" size="large" className="submit">
                 Sign Up
             </IonButton>
-            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={next}>
+            <IonButton type="button" color='medium' fill='outline' shape="round" expand="full" size="large" className="previous"  onClick={previous}>
                 Previous
             </IonButton>
         </>
