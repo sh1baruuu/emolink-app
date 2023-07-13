@@ -28,6 +28,8 @@ import SignUp from './pages/Signup/Signup';
 import SignIn from './pages/Signin/Signin';
 import Meet from './pages/Meet/Meet';
 import User from './pages/User/User';
+import Profile from './pages/User/Profile/Profile';
+import EditProfile from './pages/User/Profile/EditProfile';
 
 setupIonicReact();
 
@@ -40,6 +42,8 @@ const App: React.FC = () => (
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/meet" component={Meet} />
         <Route exact path="/user" component={User} />
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/edit" component={EditProfile} />
         <Redirect exact from="/" to="/user" />
       </IonRouterOutlet>
     </IonReactRouter>

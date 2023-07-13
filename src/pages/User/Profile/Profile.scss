@@ -1,0 +1,148 @@
+.profile-container {
+    background: var(--background-color);
+    position: relative;
+    
+    .card {
+        
+        padding-bottom: 30px;
+        background: var(--gradient-color);
+        height: 400px;
+        max-height: 400px;
+        width:100% ;
+        border-radius: 0 0 15px 15px;
+        
+        ion-header {
+            margin-bottom: 30px;
+
+            ion-toolbar {
+                position: relative;
+                --background: transparent;
+    
+                ion-button {
+                    --color: white;
+                    --ripple-color: var(--primary-color);
+                    min-width: 60px;
+                }
+    
+                ion-title {
+                    color: white;
+                    position: absolute;
+                    top: 16px;
+                    left: 50%;
+                    transform: translateX(-50%)
+                }
+    
+            }
+        }
+        
+        ion-avatar {
+            width: 100px;
+            height: auto;
+            outline: solid 3px var(--backgroundII-color);
+            border: solid 2px var(--primary-color);
+        }
+
+        .desc {
+            color: white;
+            text-align: center;
+            
+
+            h2 {
+                padding-top: 10px;
+                font-size: 1.2rem;
+                margin: 0;
+            }
+
+            p {
+                font-size: 0.85rem;
+                opacity: .8;
+            }
+        }
+
+        .follow {
+            margin-top: auto;
+            display: flex;
+            width: 90%;
+            justify-content: center;
+            gap: 5px;
+
+            ion-item {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                --background: transparent;
+                color: white;
+                --color: white;
+                --border-radius: 20px;
+                align-items: center;
+
+                h4 {
+                    text-align: center;
+                    font-size: 0.9rem;
+                    width: 100%;
+                }
+
+                p {
+                    padding: 5px 0 0 6px;
+                    line-height: 20px;
+                    letter-spacing: 1px;
+                    color: white;
+                    font-size: 0.8rem;
+                    text-align: center;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+
+    .information {
+        min-height: 40%;
+        display: inline-block;
+        overflow: auto;
+        padding-bottom: 30px;
+        width: 100%;
+        position: relative;
+
+        .wrapper {
+            margin-top: 70px;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: yellow;
+            z-index: 4;
+            opacity: 0;
+        }
+
+        ion-item-divider {
+            margin: 30px auto 0 auto;
+            --color: var(--text-color);
+            font-size: 1rem;
+            padding-left: 15px;
+            font-weight: 600;
+            width: 96%;
+            border-bottom: solid 3px var(--text-color);
+
+            
+        }
+
+        ion-item {
+            margin: 0 auto;
+            --background: var(--backgrooundII-color);
+            padding-top: 10px;
+            width: 96%;
+
+            ion-input {
+                margin: 0 auto;
+                font-style: italic;
+                color: var(--tab-text-color);
+
+            }
+        }
+    }
+
+}
+
+.onscroll {
+    position: fixed;
+    height: 200px; 
+}

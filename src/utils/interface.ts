@@ -15,12 +15,12 @@ export interface SignInData {
     password: string
 }
 
-export interface SignUpData extends UserData{ 
+export interface SignUpData extends UserData { 
     password: string
     confirm: string
 }
 
-export interface ErrorList{ 
+export interface ErrorList { 
     emailErr?: string, 
     passErr?: string, 
     confErr?: string
@@ -37,8 +37,14 @@ export interface ForgotPasswordModalProps {
     toggle?: ()=>void;
 }
 
-export interface HandlePasswordError{ 
+export interface HandlePasswordError { 
     passErr?: string,
     confErr?: string 
 }
 
+export interface LinkArr {
+    icon: string, 
+    name: string, 
+    divider?: boolean , 
+    link: string
+}

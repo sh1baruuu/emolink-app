@@ -2,25 +2,44 @@ import { IonAvatar, IonBadge, IonButton, IonButtons, IonContent, IonHeader, IonI
 import './User.scss'
 import avatar from '../../assets/avatar.jpeg'
 import { settings, logOutOutline, chatbubbles, documentText, informationCircle, people  } from 'ionicons/icons';
+import { useEffect } from 'react'
+import { LinkArr } from '../../utils/interface'
+import { useHistory, useLocation } from 'react-router'
+
+const Menu: React.FC = () => {
+
+    const history = useHistory()
+    const location = useLocation()
 
 
-interface Props{
+    useEffect(() => {
+        const menu: any = document.querySelector("ion-menu")
+        const closeMenu = () => {
+            menu.close();
+        };
+    
+        history.listen(() => {
+            closeMenu();
+        });
+    }, [history]);
 
-}
+    useEffect(() => {
+        const menu: any = document.querySelector("ion-menu")
+        if (menu && location.pathname.includes("/user")) {
+            menu.open();
+        }
 
-const Menu: React.FC<Props> = () => {
+    }, [location]);
 
-    interface LinkArr{icon: string, name: string, divider?: boolean , link: string}
-
-    const linkArr:LinkArr[] =  [
-        { icon: documentText  , name: "My Information", link: "/user"},
+    const linkArr: LinkArr[] =  [
+        { icon: documentText  , name: "My Information", link: "/profile"},
         { icon: chatbubbles  , name: "Chats", link: "/"},
         { icon: people  , name: "People", link: "/signin"},
         { icon: settings  , name: "Settings", link: "/signin" },
         { icon: informationCircle  , name: "About", divider: true, link: "/signin"},
     ]
 
-    const buttons = linkArr.map((i)=>{
+    const buttons = linkArr.map((i) => {
         return (
             <>
                 { i.divider && <IonItemDivider className='separator'></IonItemDivider> }
@@ -31,7 +50,6 @@ const Menu: React.FC<Props> = () => {
             </>
         )
     })
-
 
     return (
         <IonMenu contentId="main-content"> 
@@ -49,7 +67,6 @@ const Menu: React.FC<Props> = () => {
                         </span>
                     </span>
                     {buttons}
-
                     <IonItemDivider></IonItemDivider>
                     <IonItem button detail lines='none' className='logout'>
                         <IonIcon icon={logOutOutline} slot='start'></IonIcon>
