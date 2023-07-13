@@ -26,12 +26,14 @@ import './theme/variables.css';
 import Home from './pages/Home';
 import SignUp from './pages/Signup/Signup';
 import SignIn from './pages/Signin/Signin';
-import Meet from './pages/Meet/Meet';
-import User from './pages/User/User';
-import Profile from './pages/User/Profile/Profile';
-import Edit from './pages/User/Profile/Edit';
+import Meet from './pages/Meet/Meet'
+import User from './pages/User/User'
+import Profile from './pages/User/Profile/Profile'
+import Edit from './pages/User/Profile/Edit'
+import Chats from './pages/User/Chats/Chats'
+import People from './pages/User/People/People';
 
-setupIonicReact();
+setupIonicReact()
 
 const App: React.FC = () => (
   <IonApp>
@@ -44,6 +46,8 @@ const App: React.FC = () => (
         <Route exact path="/user" component={User} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/edit" component={Edit} />
+        <Route exact path="/chats" component={Chats} />
+        <Route exact path="/people" component={People} />
         <Redirect exact from="/" to="/user" />
       </IonRouterOutlet>
     </IonReactRouter>

@@ -146,3 +146,62 @@
     position: fixed;
     height: 200px; 
 }
+
+.edit-container {
+
+    
+    
+    .container {
+        padding: 0 20px;
+        width: 100%;
+
+
+        ion-avatar {
+            margin: 5px auto;
+            display: grid;
+            place-items: center;
+            color: white;
+            height: 80px;
+            width: 80px;
+            background: black;
+        }
+    
+        ion-label{
+            text-align: center;
+            width: 100%;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        ion-item-divider {
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        ion-item {
+            --ripple-color: var(--backgroundII-color);
+            width: 100%;
+            --border-radius: 15px;
+            height: 55px;
+            font-size: 0.95rem;
+    
+            ion-label:first-child {
+                text-align: left;
+            }
+    
+            ion-label:last-child{
+                text-align: right;
+                width: 60%;
+                color: var(--tab-text-color);
+            }
+
+            
+
+
+        }
+
+
+        
+    }
+
+}

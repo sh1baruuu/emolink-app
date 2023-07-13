@@ -1,9 +1,9 @@
-import { IonAvatar, IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonItemDivider, IonLabel, IonNavLink, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { IonAvatar, IonButton, IonContent, IonIcon, IonImg, IonInput, IonItem, IonItemDivider, IonLabel, IonPage } from '@ionic/react'
 import './Profile.scss'
 import avatar from '../../../assets/avatar.jpeg'
-import { arrowBackOutline, createOutline, settingsOutline } from 'ionicons/icons'
-import { useState } from 'react'
+import { createOutline, settingsOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router'
+import Header from '../../../components/Header'
 
 const Profile: React.FC = () => {
 
@@ -14,19 +14,11 @@ const Profile: React.FC = () => {
             <IonContent scrollEvents={true}>
                 <div className='profile-container column'>
                     <div className='card column'>
-                        <IonHeader className='ion-no-border sticky-header'>
-                            <IonToolbar >
-                                <IonButton slot='start' fill='clear' shape='round' routerLink='/user'>
-                                    <IonIcon slot='' icon={arrowBackOutline}></IonIcon>
-                                </IonButton>
-                                <IonTitle>
-                                    Profile
-                                </IonTitle>
+                        <Header title='Profile' >
                                 <IonButton slot='end' fill='clear' shape='round' >
                                     <IonIcon slot='' icon={settingsOutline}></IonIcon>
                                 </IonButton>
-                            </IonToolbar>
-                        </IonHeader>
+                        </Header>
                         <IonAvatar>
                             <IonImg src={avatar} alt='' ></IonImg>
                         </IonAvatar>

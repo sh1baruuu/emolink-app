@@ -33,10 +33,10 @@ const Menu: React.FC = () => {
 
     const linkArr: LinkArr[] =  [
         { icon: documentText  , name: "My Information", link: "/profile"},
-        { icon: chatbubbles  , name: "Chats", link: "/"},
-        { icon: people  , name: "People", link: "/signin"},
-        { icon: settings  , name: "Settings", link: "/signin" },
-        { icon: informationCircle  , name: "About", divider: true, link: "/signin"},
+        { icon: chatbubbles  , name: "Chats", link: "/chats"},
+        { icon: people  , name: "People", link: "/people"},
+        { icon: settings  , name: "Settings", link: "/" },
+        { icon: informationCircle  , name: "About", divider: true, link: "/"},
     ]
 
     const buttons = linkArr.map((i) => {

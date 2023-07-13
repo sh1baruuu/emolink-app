@@ -63,3 +63,43 @@
         font-size: 0.75rem;
     }
 }
+
+.header {
+    margin-bottom: 30px;
+
+    ion-toolbar {
+        position: relative;
+        --background: transparent;
+
+        ion-button {
+            --color: var(--text-color);
+            --ripple-color: transparent;
+            min-width: 60px;
+        }
+
+        ion-title {
+            color: var(--text-color);
+            position: absolute;
+            font-weight: 500;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+    }
+}
+
+.empty-message{
+            justify-content: center;
+
+            ion-icon {
+                height: 50px;
+                width: 50px;
+                color: var(--tab-text-color);
+            }
+
+            ion-label {
+                padding-top: 10px;
+                color: var(--tab-text-color);
+                font-size: 0.8rem;
+            }
+        }
