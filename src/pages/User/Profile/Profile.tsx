@@ -3,8 +3,11 @@ import './Profile.scss'
 import avatar from '../../../assets/avatar.jpeg'
 import { arrowBackOutline, createOutline, settingsOutline } from 'ionicons/icons'
 import { useState } from 'react'
+import { useHistory } from 'react-router'
 
 const Profile: React.FC = () => {
+
+    const history = useHistory()
 
     return (
         <IonPage>
@@ -54,7 +57,7 @@ const Profile: React.FC = () => {
                         <div className='wrapper'>   </div>
                         <IonItemDivider>
                             <IonLabel>Your Information</IonLabel>
-                            <IonButton fill='clear' routerLink='/edit' color='dark' slot='end'size='large'>
+                            <IonButton fill='clear' onClick={()=>history.push('/edit')} color='dark' slot='end'size='large'>
                                 <IonIcon icon={createOutline} ></IonIcon>
                             </IonButton>
                         </IonItemDivider>
