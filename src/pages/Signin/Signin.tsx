@@ -11,9 +11,10 @@ import logo from '../../assets/logoV2.png';
 import { onSignIn } from '../../utils/signin';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal';
 import { SignInData } from '../../utils/interface';
+import { useHistory } from 'react-router'
 
 const SignIn: React.FC = () => {
-
+    const history = useHistory()
     const data = { email: '', password: '' };
     const [formData, setFormData] = useState<SignInData>(data);
     const { email, password } = formData;
@@ -29,8 +30,9 @@ const SignIn: React.FC = () => {
     const handleSubmit = async (event: any)=>{
         event.preventDefault();
         const result = await onSignIn( email, password );
-        alert(result)
-
+        if (result==='logged'){
+            history.push('/user')
+        }
         setFormData(data)
     }
 

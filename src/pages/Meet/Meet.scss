@@ -1,0 +1,45 @@
+.meet-container {
+    background: red;
+    position: relative;
+
+    #localVideo {
+        background: black;
+        object-fit: cover;
+        min-height: 100%;
+        width: 100%;
+    }
+
+    #remoteVideo{
+        display: none;
+        background: blue;
+        height: 300px;
+        width: 200px;
+        right: 20px;
+        top: 20px;
+        position: absolute;
+    }
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        position: absolute;
+        height: 100px;
+        width: 100%;
+        bottom: 0;
+        
+        ion-button {
+            
+            height: 60px;
+            --border--size: 2px;
+            width: 60px;
+            --border-radius: 50%;
+        }
+
+        ion-button:nth-child(2){
+            margin-bottom: 20px;
+            transform: rotate(135deg);
+        }
+    }
+}

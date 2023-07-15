@@ -72,6 +72,7 @@
         --background: transparent;
 
         ion-button {
+            color: var(--text-color);
             --color: var(--text-color);
             --ripple-color: transparent;
             min-width: 60px;
@@ -84,6 +85,10 @@
             top: 16px;
             left: 50%;
             transform: translateX(-50%)
+        }
+
+        ion-button.dark {
+            color: var(--text-color);
         }
     }
 }

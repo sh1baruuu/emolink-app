@@ -23,13 +23,13 @@ const Menu: React.FC = () => {
         });
     }, [history]);
 
-    useEffect(() => {
-        const menu: any = document.querySelector("ion-menu")
-        if (menu && location.pathname.includes("/user")) {
-            menu.open();
-        }
+    // useEffect(() => {
+    //     const menu: any = document.querySelector("ion-menu")
+    //     if (menu && location.pathname.includes("/user")) {
+    //         menu.open();
+    //     }
 
-    }, [location]);
+    // }, [location]);
 
     const linkArr: LinkArr[] =  [
         { icon: documentText  , name: "My Information", link: "/profile"},
@@ -68,7 +68,7 @@ const Menu: React.FC = () => {
                     </span>
                     {buttons}
                     <IonItemDivider></IonItemDivider>
-                    <IonItem button detail lines='none' className='logout'>
+                    <IonItem button detail lines='none' routerLink='/home' className='logout'>
                         <IonIcon icon={logOutOutline} slot='start'></IonIcon>
                         <IonLabel>Log out</IonLabel>
                     </IonItem>

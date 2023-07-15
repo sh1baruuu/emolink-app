@@ -2,6 +2,7 @@ import { auth } from './firebase';
 import { AuthError, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 
+
 export interface FormData { email: string, password: string}
 
 
@@ -15,7 +16,9 @@ export const onSignIn = async (email: string, password: string): Promise<string>
     try {
 
     await signInWithEmailAndPassword(auth, email, password)
-    return "logged in"
+        
+
+    return "logged"
 } catch(error:any ){
         alert(error.message)
     return error.code

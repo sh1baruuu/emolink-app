@@ -7,18 +7,19 @@ interface Props{
     title: string,
     link?: string,
     bordered?: boolean,
+    darked?: boolean,
     children?: ReactNode
 }
 
-const Header: React.FC<Props> = ({ title, link, bordered, children }) => {
+const Header: React.FC<Props> = ({ title, link, darked, bordered, children }) => {
 
     return (
         <IonHeader className={`${ bordered ? '' : 'ion-no-border'} header`}>
             <IonToolbar >
-                <IonButton slot='start' fill='clear' shape='round' routerLink={link || '/user'}>
+                <IonButton className={`${darked ? 'black': ''}`} slot='start' fill='clear' shape='round' routerLink={link || '/user'}>
                     <IonIcon slot='' icon={arrowBackSharp} ></IonIcon>
                 </IonButton>
-                <IonTitle>
+                <IonTitle >
                     {title}
                 </IonTitle>
                 { children }
