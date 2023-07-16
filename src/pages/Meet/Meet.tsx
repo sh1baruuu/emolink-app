@@ -3,8 +3,15 @@ import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react'
 import './Meet.scss'
 import { call, mic, micOff, videocam, videocamOff } from 'ionicons/icons'
 import { openUserMedia } from '../../utils/media'
+import socketIO from 'socket.io-client'
+
+const URL = 'http://localhost:3000'
 
 const Meet: React.FC = () => {
+
+    useEffect(() => {
+        socketIO(URL)
+    }, [])
 
     const [video, setVideo] = useState<boolean>(true)
     const [audio, setAudio] = useState<boolean>(true)
@@ -12,13 +19,14 @@ const Meet: React.FC = () => {
     const remoteVideoRef = useRef<HTMLVideoElement>(null)
     
 
-    useEffect(() => {
-        openUserMedia(video, audio, localVideoRef, remoteVideoRef)
-    }, [video])
 
-    useEffect(() => {
-        openUserMedia(video, audio, localVideoRef, remoteVideoRef)
-    }, [audio])
+    // useEffect(() => {
+    //     openUserMedia(video, audio, localVideoRef, remoteVideoRef)
+    // }, [video])
+
+    // useEffect(() => {
+    //     openUserMedia(video, audio, localVideoRef, remoteVideoRef)
+    // }, [audio])
 
     const toggleCamera = () => {
         setVideo((on: boolean) => !on)
