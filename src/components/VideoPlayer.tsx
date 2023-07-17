@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react"
-
-
+import '../pages/Meet/Meet.scss'
 
 const VideoPlayer: React.FC<{stream: MediaStream}> = ({stream}) => {
     const videoRef = useRef<HTMLVideoElement>(null)

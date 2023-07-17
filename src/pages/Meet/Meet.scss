@@ -43,3 +43,15 @@
         }
     }
 }
+
+.videoContainer {
+    display: flex;
+    background: black;
+    min-height: 100%;
+
+
+}
+
+video { 
+    border: solid 2px white;
+}

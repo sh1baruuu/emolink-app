@@ -27,6 +27,10 @@ export const RoomProvider: React.FunctionComponent<{children: ReactNode}> = ({ch
         useNavigate(`/room/${roomId}`)
     }
 
+    const removePeer = (peerId: string) => {
+        dispatch(removePeerAction(peerId))
+    }
+
     useEffect(()=> {
         const meId = uuid()
         const peer = new Peer(meId)
@@ -42,6 +46,7 @@ export const RoomProvider: React.FunctionComponent<{children: ReactNode}> = ({ch
 
         ws.on('room-created', enterRoom)
         ws.on('get-users', getUsers)
+        ws.on('user-disconnected', removePeer)
     }, [])
 
     useEffect( () => { 
@@ -68,6 +73,6 @@ export const RoomProvider: React.FunctionComponent<{children: ReactNode}> = ({ch
     console.log({peers})
 
     return (
-        <RoomContext.Provider value={{ ws, me, stream}}>{children}</RoomContext.Provider>
+        <RoomContext.Provider value={{ ws, me, stream, peers}}>{children}</RoomContext.Provider>
     ) 
 }
