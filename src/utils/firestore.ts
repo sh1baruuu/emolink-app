@@ -8,7 +8,16 @@ export const userCollection = collection(db, 'Users')
 
 export const writeUserData = async (uid: string, user: UserData): Promise<string> => {
 try {
-    await setDoc(doc(userCollection, uid), {...user, birthday: user.birthday.slice(0, 10)});
+    await setDoc(doc(userCollection, uid), {
+        userId: user.userId,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        gender: user.gender,
+        birthday: user.birthday.slice(0, 10),
+        isVolunteer: user.isVolunteer,
+        email: user.email,
+        interest: user.interest,
+        });
     return 'success';
 } catch (error: any) {
     return error.message;

@@ -5,7 +5,8 @@ import {
     IonButton, 
     IonPage, 
     IonFooter, 
-    IonLoading} from '@ionic/react';
+    IonLoading,
+    IonToast} from '@ionic/react';
 import './Signin.scss';
 import { useContext, useState } from 'react';
 import logo from '../../assets/logoV2.png';
@@ -29,6 +30,7 @@ const SignIn: React.FC = () => {
         }))
     }
     const [isLoading, setIsLoading] = useState(false);
+    const [isSignedIn, setIsSignedIn] = useState(false)
 
     const handleSubmit = async (event: any)=>{
         event.preventDefault();
@@ -36,8 +38,11 @@ const SignIn: React.FC = () => {
         const res = await onSignIn( email, password );
         setIsLoading(false)
         if (res.uid !==''){
-            signinUser(res.uid)
-            history.push('/user', {uid: res.uid})
+            // setIsSignedIn(true)
+            // setTimeout(() => {
+            // }, 2000);
+            signinUser(res.uid);
+            history.push('/user', { uid: res.uid });
         }
         setFormData(data)
         
@@ -52,6 +57,14 @@ const SignIn: React.FC = () => {
     
     return (
         <IonPage>
+            {/* <IonToast
+                isOpen={isSignedIn}
+                message="You are now signed in"
+                onDidDismiss={() => setIsSignedIn(false)}
+                duration={2000}
+                position='top'
+                color='light'
+            ></IonToast> */}
             <IonLoading
                 isOpen={isLoading}
                 onDidDismiss={() => setIsLoading(false)}

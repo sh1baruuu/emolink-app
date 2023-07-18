@@ -9,7 +9,7 @@ const People: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className="chats-container column">
-                    <Header title='People' bordered />
+                    <Header title='People' bordered darked/>
                     <div className='container column'>
                         <EmptyMessage message='People will show here' />
                     </div>

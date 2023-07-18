@@ -1,3 +1,4 @@
+import { useRef } from "react";
 
 export const openUserMedia = async (video: boolean, audio: boolean, localVideoRef: any, remoteVideoRef: any) => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {

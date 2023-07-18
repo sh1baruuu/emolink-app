@@ -48,8 +48,13 @@ ion-menu-button {
     }
 
     .cont-one {
+        min-width: 100%;
         margin-bottom: 30px;
         height: 100px;
+
+        ion-icon {
+            transform: scale(2);
+        }
     }
 
 }

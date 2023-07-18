@@ -36,6 +36,7 @@ import Room from './pages/Meet/Room';
 import Search from './pages/Meet/Search';
 import Settings from './pages/User/Settings/Settings';
 import About from './pages/About/About';
+import MatchingRoom from './pages/MatchingRoom/MatchingRoom';
 
 setupIonicReact()
 
@@ -56,8 +57,8 @@ const App: React.FC= () => (
         <Route exact path="/user/chats" component={Chats} />
         <Route exact path="/user/people" component={People} />
         <Route exact path="/user/settings" component={Settings} />
-        <Route exact path="/room/:id" component={Room} />
-        <Route exact path="/search" component={Search} />
+        <Route exact path="/matching" component={MatchingRoom} />
+        <Route exact path="/meet" component={Meet} />
         <Redirect exact from="/" to="/home" />
       </IonRouterOutlet>
     </IonReactRouter>

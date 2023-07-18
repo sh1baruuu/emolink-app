@@ -11,7 +11,7 @@ const About: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className="about-container column">
-                    <Header title='About' bordered />
+                    <Header title='About' bordered darked />
                     <div className='container column'>
                         <EmptyMessage message='About will display here' />
                     </div>

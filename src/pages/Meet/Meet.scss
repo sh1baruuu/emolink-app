@@ -10,10 +10,10 @@
     }
 
     #remoteVideo{
-        display: none;
-        background: blue;
-        height: 300px;
-        width: 200px;
+        object-fit: cover;
+        background: transparent;
+        height: 250px;
+        width: 150px;
         right: 20px;
         top: 20px;
         position: absolute;

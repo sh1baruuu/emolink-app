@@ -13,7 +13,6 @@ import { UserDataContext, UserDataDoc } from '../../context/UserDataContext';
 const Menu: React.FC = () => {
 
     const history = useHistory()
-    const location = useLocation()
     const match = useRouteMatch()
     const [ user, setUser] = useState<UserDataDoc>()
     const {userData} = useContext(UserDataContext)
@@ -32,13 +31,6 @@ const Menu: React.FC = () => {
         });
     }, [history]);
 
-    // useEffect(() => {
-    //     const menu: any = document.querySelector("ion-menu")
-    //     if (menu && location.pathname.includes("/user")) {
-    //         menu.open();
-    //     }
-
-    // }, [location]);
 
     const linkArr: LinkArr[] =  [
         { icon: documentText  , name: "My Information", link: "/profile"},

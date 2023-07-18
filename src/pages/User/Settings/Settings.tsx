@@ -9,7 +9,7 @@ const Settings: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className="chats-container column">
-                    <Header title='Settings' bordered />
+                    <Header title='Settings' bordered darked />
                     <div className='container column'>
                         <EmptyMessage message='Settings will show here' />
                     </div>

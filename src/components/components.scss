@@ -87,8 +87,12 @@
             transform: translateX(-50%)
         }
 
-        ion-button.dark {
+        .dark {
             color: var(--text-color);
+        }
+
+        .light {
+            color: var(--background-color);
         }
     }
 }

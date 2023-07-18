@@ -4,7 +4,7 @@ import { IonHeader, IonToolbar, IonButton, IonIcon, IonTitle } from '@ionic/reac
 import { arrowBackSharp } from 'ionicons/icons'
 
 interface Props{
-    title: string,
+    title?: string,
     link?: string,
     bordered?: boolean,
     darked?: boolean,
@@ -12,14 +12,14 @@ interface Props{
 }
 
 const Header: React.FC<Props> = ({ title, link, darked, bordered, children }) => {
-
+    const style = darked ? 'dark': 'light'
     return (
         <IonHeader className={`${ bordered ? '' : 'ion-no-border'} header`}>
             <IonToolbar >
-                <IonButton className={`${darked ? 'black': ''}`} slot='start' fill='clear' shape='round' routerLink={link || '/user'}>
-                    <IonIcon slot='' icon={arrowBackSharp} ></IonIcon>
+                <IonButton slot='start' fill='clear' shape='round' routerLink={link || '/user'}>
+                    <IonIcon className={style} slot='' icon={arrowBackSharp} ></IonIcon>
                 </IonButton>
-                <IonTitle >
+                <IonTitle className={style} >
                     {title}
                 </IonTitle>
                 { children }

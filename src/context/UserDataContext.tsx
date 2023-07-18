@@ -19,14 +19,21 @@ export interface UserDataDoc {
 }
 
 export const UserDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [userData, setUserData] = useState<UserDataDoc | null>()
+    const [userData, setUserData] = useState<UserDataDoc | null>(() => {
+    
+        const storedUserData = localStorage.getItem('userStoredData');
+        return storedUserData ? JSON.parse(storedUserData) : null;
+    })
+
     const [userId, setUserId] = useState<string>('')
 
     useEffect(() => {
         const getData = async () => {
             const data = await getDoc(doc(userCollection, userId))
             if (data.exists()) {
-            setUserData(data.data() as UserDataDoc)
+                setUserData(data.data() as UserDataDoc)
+
+                localStorage.setItem('userStoredData', JSON.stringify(data.data()));
             }
         }
 
@@ -38,7 +45,9 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({ children }
         }
     
         const signoutUser = () => {
-            setUserId('')
+            setUserId('');
+            setUserData(null);
+            localStorage.removeItem('userStoredData');
         }
 
         console.log(JSON.stringify(userData))

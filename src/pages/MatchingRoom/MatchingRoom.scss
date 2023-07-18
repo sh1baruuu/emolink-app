@@ -1,0 +1,30 @@
+.mr-container {
+    background: var(--gradient-color);
+
+    .container {
+        justify-content: center;
+        margin-top: 30px;
+        margin-bottom: auto;
+        width: 90%;
+        height: 50%;
+
+        ion-spinner {
+            width: 400px;
+            --color: white;
+        } 
+
+        ion-label {
+            font-weight: 600;
+            color: white;
+        }
+    }
+
+
+    .stop {
+        margin-bottom: 50px;
+        height: 80px;
+        width: 80px;
+        --border-radius: 50%;
+    }
+}
+

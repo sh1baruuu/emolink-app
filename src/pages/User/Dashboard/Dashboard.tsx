@@ -1,6 +1,5 @@
 import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonIcon, IonImg, IonAvatar, IonButton, IonActionSheet, IonRouteProps, IonPopover } from "@ionic/react"
-import { ellipsisVertical, helpCircleSharp, notifications } from "ionicons/icons"
-import { SignUpData, UserData } from "../../../utils/interface"
+import { ellipsisVertical, helpCircleSharp, notifications, videocamOutline } from "ionicons/icons"
 import { currentUser, onSignOut } from "../../../utils/signin"
 import { getUserData } from "../../../utils/firestore"
 import { useEffect, useRef, useContext, useState } from "react"
@@ -106,7 +105,9 @@ const Dashboard: React.FC<{uid: string}> = ({uid}) => {
                 <IonContent fullscreen className='main'>
                         <div className="container">
                             <h1>Home</h1>
-                            <div className="cont-one"></div>
+                            <IonButton color='light' className="cont-one" routerLink='/matching'>
+                                <IonIcon icon={videocamOutline}></IonIcon>
+                            </IonButton>
                             <div className="cont-two"></div>
                         </div>
                 </IonContent>
