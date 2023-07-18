@@ -19,6 +19,13 @@
         top: 20px;
         position: absolute;
     }
+       canvas {
+        position: absolute;
+        transform: translate(-40%, -38%);
+        left: 0%;
+        top: 50%;
+        width: 1000px;
+    }
 
     .buttons {
         display: flex;
