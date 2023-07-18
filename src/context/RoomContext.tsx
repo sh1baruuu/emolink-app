@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid'
 import { addPeerAction, removePeerAction } from './peerActions'
 import { peersReducer } from './peerReducer'
 
-const URL = 'https://socket-server-lyart.vercel.app/'
+const URL = ''
 
 export const RoomContext = createContext<null | any>(null)
 

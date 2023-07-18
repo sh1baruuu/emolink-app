@@ -35,6 +35,7 @@ import People from './pages/User/People/People';
 import Room from './pages/Meet/Room';
 import Search from './pages/Meet/Search';
 import Settings from './pages/User/Settings/Settings';
+import About from './pages/About/About';
 
 setupIonicReact()
 
@@ -47,8 +48,9 @@ const App: React.FC= () => (
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/user" component={User} />
-        <Route exact path="/meet" component={Meet} />
         <Route exact path="/user/:id" component={User} />
+        <Route exact path="/meet" component={Meet} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/user/profile" component={Profile} />
         <Route exact path="/user/profile/edit" component={Edit} />
         <Route exact path="/user/chats" component={Chats} />

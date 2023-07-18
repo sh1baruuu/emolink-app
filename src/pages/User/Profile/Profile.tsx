@@ -4,24 +4,12 @@ import avatar from '../../../assets/avatar.jpeg'
 import { createOutline, settingsOutline } from 'ionicons/icons'
 import { useHistory, useLocation, useRouteMatch } from 'react-router'
 import Header from '../../../components/Header'
-import { useEffect, useState } from 'react'
-import { SignUpData } from '../../../utils/interface'
-import { DocumentData } from 'firebase/firestore'
+
 
 const Profile: React.FC = () => {
     const match = useRouteMatch()
     const location = useLocation()
     const history = useHistory()
-    const state = location.state as any;
-    const data = state?.user || {}
-    const [user, setUser] = useState<SignUpData | DocumentData>(data)
-
-    useEffect( ()=> {
-        setUser(data)
-    }, [user])
-
-    let interestArr = user.interest
-    let interest = interestArr.join(', ')
 
     return (
         <IonPage>
@@ -37,8 +25,8 @@ const Profile: React.FC = () => {
                             <IonImg src={avatar} alt='' ></IonImg>
                         </IonAvatar>
                         <span className='desc'>
-                            <h2>{user.firstname + ' ' + user.lastname}</h2>
-                            <p>ID: {user.userId || '000000000'}</p>
+                            <h2>Rudolph Angelo C. De Villa</h2>
+                            <p>ID: 123456780</p>
                         </span>
                         <span className='follow'>
                             <IonItem button>
@@ -69,27 +57,27 @@ const Profile: React.FC = () => {
                         </IonItemDivider>
                         <IonItem> 
                             <IonLabel position='stacked'>Email</IonLabel>
-                            <IonInput className='disabled' value={user.email} ></IonInput>
+                            <IonInput className='disabled' value='devillarudolphangelo@gmail.com' ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Firstname</IonLabel>
-                            <IonInput value={user.firstname} ></IonInput>
+                            <IonInput value='Rudolph' ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Lastname</IonLabel>
-                            <IonInput value={user.lastname} ></IonInput>
+                            <IonInput value='De Villa' ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Gender</IonLabel>
-                            <IonInput value={user.gender} ></IonInput>
+                            <IonInput value='Male' ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Date of Birth</IonLabel>
-                            <IonInput value={user.birthday} ></IonInput>
+                            <IonInput value='09-12-2000' ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Interest</IonLabel>
-                            <IonInput value={interest}></IonInput>
+                            <IonInput value='One, Two, Three'></IonInput>
                         </IonItem>
 
                     </div>

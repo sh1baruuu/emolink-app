@@ -70,8 +70,8 @@ const Menu: React.FC<{data: DocumentData | SignUpData}>= ({data}) => {
                             <span className='status'></span>
                         </IonAvatar>
                         <span>
-                            <h6>{data.firstname + ' ' + data.lastname}</h6>
-                            <p>ID: {data.userId || '000000000'}</p>
+                            <h6>{data?.firstname + ' ' + data?.lastname}</h6>
+                            <p>ID: {data?.userId || '000000000'}</p>
                         </span>
                     </span>
                     {buttons}
