@@ -7,12 +7,7 @@ import { useEffect, useState } from "react"
 const MatchingRoom: React.FC = () => {
     const history = useHistory()
 
-    const [message, setMessage] = useState<string>()
-
-    useEffect(() => {
-    setTimeout(() => {
-        setMessage('Matching started...');
-    }, 3000);
+    const [message, setMessage] = useState<string>('Matching started...')
 
     setTimeout(() => {
         setMessage('Please wait...');
@@ -21,8 +16,7 @@ const MatchingRoom: React.FC = () => {
     setTimeout(() => {
         setMessage('Matched');
         history.push('/meet');
-    }, 6000);
-    }, [])
+    }, 6000)
     
 
     return (
