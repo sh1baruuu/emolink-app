@@ -1,17 +1,17 @@
 import { IonPage, IonContent, IonLabel } from '@ionic/react'
 import Header from '../../../components/Header'
-import './People.scss'
+import './Settings.scss'
 import EmptyMessage from '../../../components/EmptyMessage'
 
-const People: React.FC = () => {
+const Settings: React.FC = () => {
 
     return (
         <IonPage>
             <IonContent fullscreen>
                 <div className="chats-container column">
-                    <Header title='People' bordered />
+                    <Header title='Settings' bordered />
                     <div className='container column'>
-                        <EmptyMessage message='People will show here' />
+                        <EmptyMessage message='Settings will show here' />
                     </div>
                 </div>
             </IonContent>
@@ -19,4 +19,4 @@ const People: React.FC = () => {
     )
 }
 
-export default People
+export default Settings

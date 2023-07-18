@@ -4,7 +4,7 @@ export interface UserData {
     firstname: string,
     lastname: string,
     gender: string,
-    dateOfBirth: string,
+    birthday: string,
     interest: string[],
     isVolunteer: boolean,
     email: string, 

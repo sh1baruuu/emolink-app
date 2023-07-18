@@ -29,6 +29,7 @@ const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, onFocu
                 className={emailErr ? 'error' : ''}
                 id='error'
                 shape='round'
+                autocomplete='off'
                 type="email"
                 fill="outline"
                 label='Email address'
@@ -43,6 +44,7 @@ const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, onFocu
             <IonInput
                 className={passErr ? 'error' : ''}
                 shape='round'
+                autocomplete='off'
                 type="password"
                 fill="outline"
                 label='Password'
@@ -57,6 +59,7 @@ const StepThree: React.FC<Props> = ({email, password,  confirm, onChange, onFocu
             <IonInput
                 className={confErr ? 'error' : ''}
                 shape='round'
+                autocomplete='off'
                 type="password"
                 fill="outline"
                 label='Confirm password'

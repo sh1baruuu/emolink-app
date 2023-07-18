@@ -53,3 +53,25 @@ ion-menu-button {
     }
 
 }
+
+ion-popover {
+    padding: 0;
+    --width:auto;
+    --height: 25px;
+    overflow: visible;
+
+    .container {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+
+        p {
+            font-size: .8rem;
+        }
+        
+    }
+
+    
+}

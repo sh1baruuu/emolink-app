@@ -1,6 +1,6 @@
 import { auth } from './firebase';
-import { AuthError, signInWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
+import {  browserSessionPersistence, setPersistence, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+
 
 
 export interface FormData { email: string, password: string}
@@ -12,17 +12,29 @@ export interface FormData { email: string, password: string}
 // const [passwordError, setPasswordError] = useState("")
 // const [submitLoader, setSubmitLoader] = useState(false)
 
-export const onSignIn = async (email: string, password: string): Promise<string> =>{
+interface response{
+    uid?: string,
+    error?: string,
+}
+
+export const onSignIn = async (email: string, password: string): Promise<response> =>{
+    await setPersistence(auth, browserSessionPersistence)
+
     try {
 
-    await signInWithEmailAndPassword(auth, email, password)
-        
-
-    return "logged"
+    const credentials = await signInWithEmailAndPassword(auth, email, password)
+    
+    const user = credentials.user
+    const uid = user.uid
+    return { uid }
 } catch(error:any ){
         alert(error.message)
-    return error.code
+    return { uid: '', error }
     }
+}
+
+export const onSignOut = async () => {
+    await signOut(auth)
 }
 
 // export const onSignIn = async (email: string, password: string): Promise<void> => {
@@ -56,3 +68,13 @@ export const onSignIn = async (email: string, password: string): Promise<string>
 //     }
 //     setSubmitLoader(false)
 // }
+
+export const currentUser = () => {
+    let user = auth.currentUser
+    if (user){
+        let uid = user.uid
+        return uid
+    } else {
+        return null
+    }
+}

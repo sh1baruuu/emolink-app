@@ -74,18 +74,9 @@
         }
     }
 
-    ion-item-divider{
-        width: 90%;
-        margin-top: auto;
-    }
 
     ion-item-divider.separator{
         margin: 0;
-    }
-
-    ion-item.logout{
-        --color: red;
-        --ripple-color: red;
-        margin-bottom: 20px;
+        width: 90%;
     }
 }

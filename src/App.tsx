@@ -1,4 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import './global.scss';
@@ -34,25 +34,29 @@ import Chats from './pages/User/Chats/Chats'
 import People from './pages/User/People/People';
 import Room from './pages/Meet/Room';
 import Search from './pages/Meet/Search';
+import Settings from './pages/User/Settings/Settings';
 
 setupIonicReact()
 
-const App: React.FC = () => (
+const App: React.FC= () => (
+
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home" component={Home} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/meet" component={Meet} />
         <Route exact path="/user" component={User} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/edit" component={Edit} />
-        <Route exact path="/chats" component={Chats} />
-        <Route exact path="/people" component={People} />
+        <Route exact path="/meet" component={Meet} />
+        <Route exact path="/user/:id" component={User} />
+        <Route exact path="/user/profile" component={Profile} />
+        <Route exact path="/user/profile/edit" component={Edit} />
+        <Route exact path="/user/chats" component={Chats} />
+        <Route exact path="/user/people" component={People} />
+        <Route exact path="/user/settings" component={Settings} />
         <Route exact path="/room/:id" component={Room} />
         <Route exact path="/search" component={Search} />
-        <Redirect exact from="/" to="/search" />
+        <Redirect exact from="/" to="/home" />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

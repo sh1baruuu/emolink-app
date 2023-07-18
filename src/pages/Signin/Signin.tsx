@@ -4,7 +4,8 @@ import {
     IonInput, 
     IonButton, 
     IonPage, 
-    IonFooter } from '@ionic/react';
+    IonFooter, 
+    IonLoading} from '@ionic/react';
 import './Signin.scss';
 import { useState } from 'react';
 import logo from '../../assets/logoV2.png';
@@ -26,14 +27,18 @@ const SignIn: React.FC = () => {
             [name]: value
         }))
     }
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (event: any)=>{
         event.preventDefault();
-        const result = await onSignIn( email, password );
-        if (result==='logged'){
-            history.push('/user')
+        setIsLoading(true)
+        const res = await onSignIn( email, password );
+        setIsLoading(false)
+        if (res.uid !==''){
+            history.push('/user', {uid: res.uid})
         }
         setFormData(data)
+        
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,6 +50,11 @@ const SignIn: React.FC = () => {
     
     return (
         <IonPage>
+            <IonLoading
+                isOpen={isLoading}
+                onDidDismiss={() => setIsLoading(false)}
+                message={'Signing in...'}
+            />
             <IonContent fullscreen>
                 <div className="sign-container column">
                     <IonImg className='logo' src={logo} alt=''></IonImg>

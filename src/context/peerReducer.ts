@@ -11,22 +11,22 @@ type PeerAction =
         payload: { peerId: string };
     };
 
-export const peersReducer= (state: PeerState, action: PeerAction) => {
-    switch(action.type){
-        case ADD_PEER:{
-            return {
-                ...state,
-                [action.payload.peerId]: {
-                    stream: action.payload.stream,
-                },
+    export const peersReducer = (state: PeerState, action: PeerAction) => {
+        switch (action.type) {
+            case ADD_PEER: {
+                return {
+                    ...state,
+                    [action.payload.peerId]: {
+                        stream: action.payload.stream,
+                    },
+                }
             }
+            case REMOVE_PEER: {
+                const { [action.payload.peerId]: deleted, ...rest } = state;
+                return rest;
+            }
+            default:
+                return { ...state };
         }
-        case ADD_PEER:{
-            const {[action.payload.peerId]: deleted, ...rest} = state;
-            return rest;
-        }
-
-        default:
-            return {...state}
     }
-}
+    

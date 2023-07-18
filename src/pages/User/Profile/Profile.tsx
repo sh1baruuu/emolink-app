@@ -2,12 +2,26 @@ import { IonAvatar, IonButton, IonContent, IonIcon, IonImg, IonInput, IonItem, I
 import './Profile.scss'
 import avatar from '../../../assets/avatar.jpeg'
 import { createOutline, settingsOutline } from 'ionicons/icons'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation, useRouteMatch } from 'react-router'
 import Header from '../../../components/Header'
+import { useEffect, useState } from 'react'
+import { SignUpData } from '../../../utils/interface'
+import { DocumentData } from 'firebase/firestore'
 
 const Profile: React.FC = () => {
-
+    const match = useRouteMatch()
+    const location = useLocation()
     const history = useHistory()
+    const state = location.state as any;
+    const data = state?.user || {}
+    const [user, setUser] = useState<SignUpData | DocumentData>(data)
+
+    useEffect( ()=> {
+        setUser(data)
+    }, [user])
+
+    let interestArr = user.interest
+    let interest = interestArr.join(', ')
 
     return (
         <IonPage>
@@ -23,8 +37,8 @@ const Profile: React.FC = () => {
                             <IonImg src={avatar} alt='' ></IonImg>
                         </IonAvatar>
                         <span className='desc'>
-                            <h2>Rudolph De Villa</h2>
-                            <p>ID: 123456780</p>
+                            <h2>{user.firstname + ' ' + user.lastname}</h2>
+                            <p>ID: {user.userId || '000000000'}</p>
                         </span>
                         <span className='follow'>
                             <IonItem button>
@@ -49,33 +63,33 @@ const Profile: React.FC = () => {
                         <div className='wrapper'>   </div>
                         <IonItemDivider>
                             <IonLabel>Your Information</IonLabel>
-                            <IonButton fill='clear' onClick={()=>history.push('/edit')} color='dark' slot='end'size='large'>
+                            <IonButton fill='clear' onClick={()=>history.push(`${match.url}/edit`)} color='dark' slot='end'size='large'>
                                 <IonIcon icon={createOutline} ></IonIcon>
                             </IonButton>
                         </IonItemDivider>
                         <IonItem> 
                             <IonLabel position='stacked'>Email</IonLabel>
-                            <IonInput className='disabled' value='20-06346@g.batstate-u.edu.ph' ></IonInput>
+                            <IonInput className='disabled' value={user.email} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Firstname</IonLabel>
-                            <IonInput value='Rudolph' ></IonInput>
+                            <IonInput value={user.firstname} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Lastname</IonLabel>
-                            <IonInput value='De Villa' ></IonInput>
+                            <IonInput value={user.lastname} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Gender</IonLabel>
-                            <IonInput value='Male' ></IonInput>
+                            <IonInput value={user.gender} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Date of Birth</IonLabel>
-                            <IonInput value='2005-03-56' ></IonInput>
+                            <IonInput value={user.birthday} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Interest</IonLabel>
-                            <IonInput value='Interest1, Interest2, Interest3' ></IonInput>
+                            <IonInput value={interest}></IonInput>
                         </IonItem>
 
                     </div>

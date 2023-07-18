@@ -11,23 +11,24 @@ const Room: React.FC = () => {
     const {id} = useParams<{id: any}>()
     const {ws, me, stream, peers} = useContext(RoomContext)
 
-    useEffect(()=>{
-        if (me){ ws.emit('join-room', {roomId: id, peerId: me._id})}
-
-    }, [id, me, ws])
-
+    useEffect(() => {
+        if (me) {
+            ws.emit('join-room', { roomId: id, peerId: me });
+        }
+    }, [id, me, ws]);
+    
 
 
     return (
         <IonPage>
             <IonContent fullscreen>
-                <h1>Room {id}</h1>
+                <h1>Room{id}</h1>
                 <div className="videoContainer">
                     <VideoPlayer stream={stream}  />
-                    <VideoPlayer stream={peers.s}  />
-                    {/* {Object.values(peers as PeerState).map((peer) => (
+
+                    {Object.values(peers as PeerState).map((peer) => (
                         <VideoPlayer stream={peer.stream} />
-                        ))} */}
+                        ))}
                     
                 </div>
             </IonContent>

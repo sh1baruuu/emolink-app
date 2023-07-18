@@ -9,7 +9,7 @@ const Edit: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className="edit-container column">
-                    <Header title='Edit Profile' link='/profile' />
+                    <Header title='Edit Profile' link='/user/profile' />
                     <div className="container column">
                         <IonAvatar onClick={()=>alert("Create a function for change photo")}>
                             <IonIcon icon={cameraOutline} size='large'></IonIcon>

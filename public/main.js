@@ -36,6 +36,13 @@ navigator.mediaDevices.getUserMedia({
     })
 })
 
+const addVideoStream = (video, stream) => {
+    video.srcObject = stream
+    video.addEventListener('loadmetadata', () => {
+        video.play()
+    })
+    videogrid.append(video)
+}
 
 socket.emit('join-room', ROOM_ID, 10)
 
@@ -53,13 +60,4 @@ const connectToNewUser = (userId, stream) => {
     call.on('close', () => {
         video.remove()
     })
-}
-
-
-const addVideoStream = (video, stream) => {
-    video.srcObject = stream
-    video.addEventListener('loadmetadata', () => {
-        video.play()
-    })
-    videogrid.append(video)
 }

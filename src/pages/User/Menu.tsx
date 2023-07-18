@@ -1,15 +1,19 @@
-import { IonAvatar, IonBadge, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonItem, IonItemDivider, IonLabel, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAvatar, IonContent, IonIcon, IonImg, IonItem, IonItemDivider, IonLabel, IonMenu } from '@ionic/react';
 import './User.scss'
 import avatar from '../../assets/avatar.jpeg'
-import { settings, logOutOutline, chatbubbles, documentText, informationCircle, people  } from 'ionicons/icons';
+import { settings, chatbubbles, documentText, informationCircle, people  } from 'ionicons/icons';
 import { useEffect } from 'react'
-import { LinkArr } from '../../utils/interface'
-import { useHistory, useLocation } from 'react-router'
+import { LinkArr, SignUpData } from '../../utils/interface'
+import { useHistory, useLocation, useRouteMatch } from 'react-router'
+import { DocumentData } from 'firebase/firestore';
 
-const Menu: React.FC = () => {
+
+
+const Menu: React.FC<{data: DocumentData | SignUpData}>= ({data}) => {
 
     const history = useHistory()
     const location = useLocation()
+    const match = useRouteMatch()
 
 
     useEffect(() => {
@@ -33,17 +37,21 @@ const Menu: React.FC = () => {
 
     const linkArr: LinkArr[] =  [
         { icon: documentText  , name: "My Information", link: "/profile"},
-        { icon: chatbubbles  , name: "Chats", link: "/chats"},
+        { icon: chatbubbles  , name: "Chats", link: '/chats'},
         { icon: people  , name: "People", link: "/people"},
-        { icon: settings  , name: "Settings", link: "/" },
-        { icon: informationCircle  , name: "About", divider: true, link: "/"},
+        { icon: settings  , name: "Settings", link: "/settings" },
+        { icon: informationCircle  , name: "About", divider: true, link: "/about"},
     ]
+
+    const linkTo = (link: string) => {
+        history.push(link, {user: data})
+    }
 
     const buttons = linkArr.map((i) => {
         return (
             <>
                 { i.divider && <IonItemDivider className='separator'></IonItemDivider> }
-                <IonItem button detail lines='none' routerLink={i.link} >
+                <IonItem button detail lines='none' onClick={() => linkTo(i.link === "/about" ? i.link : `${match.url}${i.link}`)} >
                     <IonIcon icon={i.icon} slot='start'></IonIcon>
                     <IonLabel>{i.name}</IonLabel>
                 </IonItem>
@@ -62,16 +70,12 @@ const Menu: React.FC = () => {
                             <span className='status'></span>
                         </IonAvatar>
                         <span>
-                            <h6>Rudolph Angelo De Villa</h6>
-                            <p>ID: 123456780</p>
+                            <h6>{data.firstname + ' ' + data.lastname}</h6>
+                            <p>ID: {data.userId || '000000000'}</p>
                         </span>
                     </span>
                     {buttons}
-                    <IonItemDivider></IonItemDivider>
-                    <IonItem button detail lines='none' routerLink='/home' className='logout'>
-                        <IonIcon icon={logOutOutline} slot='start'></IonIcon>
-                        <IonLabel>Log out</IonLabel>
-                    </IonItem>
+                    
                     
                 </div>
             </IonContent>

@@ -47,7 +47,7 @@ const StepTwo: React.FC<Props> = ({gender, birthday,  interest, onChange, datePi
                 fill="outline"
                 label='Birthday'
                 labelPlacement='floating'
-                value={birthday.slice(0, 10)}
+                value={birthday}
                 onClick={onDatePicker}
             >
             </IonInput>
@@ -59,7 +59,7 @@ const StepTwo: React.FC<Props> = ({gender, birthday,  interest, onChange, datePi
                 <div className='column'>
                     <IonDatetime 
                         id="datetime"
-                        name='dateOfBirth'
+                        name='birthday'
                         value={birthday}
                         onIonChange={onChange}
                     >

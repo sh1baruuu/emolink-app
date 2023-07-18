@@ -3,18 +3,24 @@ import {
     IonImg, 
     IonButton, 
     IonPage, 
-    IonFooter} from '@ionic/react'
+    IonFooter,
+    IonLoading,
+    IonToast} from '@ionic/react'
 import './Signup.scss';
 import { useState } from 'react'
 import logo from '../../assets/logoV2.png'
 import { onSignUp } from '../../utils/signup'
-import { ErrorList, SignUpData } from '../../utils/interface'
+import { SignUpData } from '../../utils/interface'
 import StepOne from './StepOne'
 import StepTwo from './StepTwo'
 import StepThree from './StepThree'
 import { writeUserData } from '../../utils/firestore';
+import { useHistory } from 'react-router';
+import { generateUniqueId } from '../../utils/uid';
 
 const SignUp: React.FC = () => {
+
+    const history = useHistory()
 
     const [firstnameError, setFirstnameError] = useState("")
     const [lastnameError, setLastnameError] = useState("")
@@ -23,17 +29,17 @@ const SignUp: React.FC = () => {
     const [emailError, setEmailError] = useState<string | undefined>("")
     const [passwordError, setPasswordError ] = useState<string | undefined>("")
     const [confirmError, setConfirmError ] = useState<string | undefined>("")
-
-
-
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
     const [step, setStep] = useState<number>(1)
+
+
+
     const userData: SignUpData = {
-        userId: "",
+        userId: generateUniqueId(),
         firstname: "",
         lastname: "",
         gender: "",
-        dateOfBirth: "",
+        birthday: "",
         interest: [],
         isVolunteer: false,
         email: "",
@@ -43,25 +49,24 @@ const SignUp: React.FC = () => {
     const [userFormData, setUserFormData] = useState<SignUpData>(userData)
 
     const {
-            userId,
             firstname,
             lastname,
             gender,
-            dateOfBirth,
+            birthday,
             interest,
             isVolunteer,
             email,
             password, 
             confirm
-    } = userFormData
+        } = userFormData;
 
     const handleChange = (e: any) => {
         let {name, value} = e.target    
         setUserFormData((prevData:SignUpData) => ({
             ...prevData,
-            [name]: value
+            [name]: name === 'birthday' ? value.slice(0, 10) : value
         }))
-        if(name === "dateOfBirth"){
+        if(name === "birthday"){
             handleDatePicker()
         }
     }
@@ -91,10 +96,10 @@ const SignUp: React.FC = () => {
             if (interest.length >= 3){
                 setBirthdayError(message)
             }
-            if (dateOfBirth === ""){
+            if (birthday === ""){
                 setBirthdayError(message)
             }
-            { dateOfBirth && interest.length >= 3 && setStep(num)}
+            { birthday && interest.length >= 3 && setStep(num)}
         } else if (!next && step === 2){
             setStep(num)
         } else {
@@ -109,7 +114,6 @@ const SignUp: React.FC = () => {
 
     
     const [buttonDisable, setButtonDisable] = useState(false)
-    const [submitLoading, setSubmitLoading ] = useState<boolean>(false)
     
     const handleInputFocus = () => {
         setEmailError('')
@@ -117,10 +121,12 @@ const SignUp: React.FC = () => {
         setConfirmError('')
         setButtonDisable(false)
     }
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isRegistered, setIsRegistered] = useState(false);
+    
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        setSubmitLoading(true)
+        setIsLoading(true)
         const result = await onSignUp( email, password, confirm )
 
         const uid = result.uid
@@ -130,7 +136,7 @@ const SignUp: React.FC = () => {
             await writeUserData(uid, userFormData)
             resetUserFormData()
             setStep(1)
-            console.log(`User with id:${uid} added to database`)
+            history.push('/signin')
         } else {
             if (emailErr !== ''){
                 setEmailError(emailErr)
@@ -141,20 +147,31 @@ const SignUp: React.FC = () => {
             }
             setButtonDisable(true)
         }
-        console.log(JSON.stringify(result.errorList))
-        console.log( emailErr + " " + passErr + " " +confErr)
-        setSubmitLoading(false)
+        setIsLoading(false)
+        setIsRegistered(true)
     }
 
     
     return (
         <IonPage>
+            <IonToast
+                isOpen={isRegistered}
+                message="You are now registered"
+                onDidDismiss={() => setIsRegistered(false)}
+                duration={3000}
+                position='top'
+                color='light'
+            ></IonToast>
+            <IonLoading
+                isOpen={isLoading}
+                onDidDismiss={() => setIsLoading(false)}
+                message={'Signing up...'}
+            />
             <IonContent fullscreen>
                 <div className="sign-container column">
                     <IonImg className='logo' src={logo} alt=''></IonImg>
                     <h1>Sign Up Now</h1>
                     <p>Please signup to continue our app</p>
-                    { submitLoading && "Loading..."}
                     <form onSubmit={handleSubmit} >
 
                         { step === 1 && 
@@ -170,7 +187,7 @@ const SignUp: React.FC = () => {
                         { step === 2 && 
                             <StepTwo 
                                 gender={gender} 
-                                birthday={dateOfBirth}  
+                                birthday={birthday}  
                                 interest={interest} 
                                 onChange={handleChange} 
                                 onDatePicker={handleDatePicker} 

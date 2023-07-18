@@ -6,13 +6,13 @@ import { v4 as uuid } from 'uuid'
 import { addPeerAction, removePeerAction } from './peerActions'
 import { peersReducer } from './peerReducer'
 
-const URL = 'http://localhost:3000'
+const URL = 'https://socket-server-lyart.vercel.app/'
 
 export const RoomContext = createContext<null | any>(null)
 
 const ws = socketIOClient(URL)
 
-export const RoomProvider: React.FunctionComponent<{children: ReactNode}> = ({children}) => {
+export const RoomProvider: React.FC<{children: ReactNode}> = ({children}) => {
 
     const [me, setMe] = useState<Peer>()
     const [stream, setStream] = useState<MediaStream>()
@@ -37,7 +37,7 @@ export const RoomProvider: React.FunctionComponent<{children: ReactNode}> = ({ch
         setMe(peer)
 
         try { 
-            navigator.mediaDevices.getUserMedia({video: true, audio: true}).then( (stream) => {
+            navigator.mediaDevices.getUserMedia({video: true, audio: false}).then( (stream) => {
                 setStream(stream)
             })
         } catch (error) {
@@ -73,6 +73,8 @@ export const RoomProvider: React.FunctionComponent<{children: ReactNode}> = ({ch
     console.log({peers})
 
     return (
-        <RoomContext.Provider value={{ ws, me, stream, peers}}>{children}</RoomContext.Provider>
+        <RoomContext.Provider value={{ ws, me, stream, peers}}>
+            {children}
+        </RoomContext.Provider>
     ) 
 }
