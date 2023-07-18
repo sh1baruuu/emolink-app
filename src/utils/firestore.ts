@@ -1,9 +1,10 @@
 import { DocumentData, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
 import { UserData } from './interface';
+import { UserDataDoc } from '../context/UserDataContext';
 
 
-const userCollection = collection(db, 'Users')
+export const userCollection = collection(db, 'Users')
 
 export const writeUserData = async (uid: string, user: UserData): Promise<string> => {
 try {
@@ -15,7 +16,7 @@ try {
 };
 
 
-export const getUserData = async (uid: string): Promise<DocumentData | null> => {
+export const getUserData = async (uid: string): Promise<null | any> => {
     try {
         const userData = await getDoc(doc(userCollection, uid));
 

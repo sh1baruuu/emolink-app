@@ -7,19 +7,20 @@ import {
     IonFooter, 
     IonLoading} from '@ionic/react';
 import './Signin.scss';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import logo from '../../assets/logoV2.png';
 import { onSignIn } from '../../utils/signin';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal';
 import { SignInData } from '../../utils/interface';
 import { useHistory } from 'react-router'
+import { UserDataContext } from '../../context/UserDataContext';
 
 const SignIn: React.FC = () => {
     const history = useHistory()
     const data = { email: '', password: '' };
     const [formData, setFormData] = useState<SignInData>(data);
     const { email, password } = formData;
-
+    const { signinUser } = useContext(UserDataContext)
     const handleOnInput = (e: any) => {
         let  {name, value} = e.target
         setFormData((prevData:SignInData)=> ({
@@ -35,6 +36,7 @@ const SignIn: React.FC = () => {
         const res = await onSignIn( email, password );
         setIsLoading(false)
         if (res.uid !==''){
+            signinUser(res.uid)
             history.push('/user', {uid: res.uid})
         }
         setFormData(data)

@@ -2,20 +2,25 @@ import { IonAvatar, IonContent, IonIcon, IonImg, IonItem, IonItemDivider, IonLab
 import './User.scss'
 import avatar from '../../assets/avatar.jpeg'
 import { settings, chatbubbles, documentText, informationCircle, people  } from 'ionicons/icons';
-import { useEffect } from 'react'
-import { LinkArr, SignUpData } from '../../utils/interface'
+import { useEffect, useState, useContext } from 'react'
+import { LinkArr } from '../../utils/interface'
 import { useHistory, useLocation, useRouteMatch } from 'react-router'
-import { DocumentData } from 'firebase/firestore';
+import { v4 as uuid } from 'uuid';
+import { UserDataContext, UserDataDoc } from '../../context/UserDataContext';
 
 
 
-const Menu: React.FC<{data: DocumentData | SignUpData}>= ({data}) => {
+const Menu: React.FC = () => {
 
     const history = useHistory()
     const location = useLocation()
     const match = useRouteMatch()
+    const [ user, setUser] = useState<UserDataDoc>()
+    const {userData} = useContext(UserDataContext)
 
-
+    useEffect(()=>{
+        setUser(userData)
+    })
     useEffect(() => {
         const menu: any = document.querySelector("ion-menu")
         const closeMenu = () => {
@@ -44,14 +49,16 @@ const Menu: React.FC<{data: DocumentData | SignUpData}>= ({data}) => {
     ]
 
     const linkTo = (link: string) => {
-        history.push(link, {user: data})
+        history.push(link)
     }
 
     const buttons = linkArr.map((i) => {
+        
+
         return (
             <>
                 { i.divider && <IonItemDivider className='separator'></IonItemDivider> }
-                <IonItem button detail lines='none' onClick={() => linkTo(i.link === "/about" ? i.link : `${match.url}${i.link}`)} >
+                <IonItem button key={uuid()} detail lines='none' onClick={() => linkTo(i.link === "/about" ? i.link : `${match.url}${i.link}`)} >
                     <IonIcon icon={i.icon} slot='start'></IonIcon>
                     <IonLabel>{i.name}</IonLabel>
                 </IonItem>
@@ -70,8 +77,8 @@ const Menu: React.FC<{data: DocumentData | SignUpData}>= ({data}) => {
                             <span className='status'></span>
                         </IonAvatar>
                         <span>
-                            <h6>{data?.firstname + ' ' + data?.lastname}</h6>
-                            <p>ID: {data?.userId || '000000000'}</p>
+                            <h6>{user?.firstname + ' ' + user?.lastname}</h6>
+                            <p>ID: {user?.userId}</p>
                         </span>
                     </span>
                     {buttons}

@@ -1,18 +1,18 @@
 import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonIcon, IonImg, IonAvatar, IonButton, IonActionSheet, IonRouteProps, IonPopover } from "@ionic/react"
-import Menu from "../Menu"
 import { ellipsisVertical, helpCircleSharp, notifications } from "ionicons/icons"
-import avatar from '../../../assets/avatar.jpeg'
-import './Dashboard.scss'
-import { useHistory } from 'react-router'
-import { useEffect, useRef, useState } from "react"
-import { currentUser, onSignOut } from "../../../utils/signin"
 import { SignUpData, UserData } from "../../../utils/interface"
+import { currentUser, onSignOut } from "../../../utils/signin"
 import { getUserData } from "../../../utils/firestore"
-import { DocumentData } from "firebase/firestore"
+import { useEffect, useRef, useContext, useState } from "react"
+import avatar from '../../../assets/avatar.jpeg'
+import { useHistory } from 'react-router'
+import Menu from "../Menu"
+import './Dashboard.scss'
+import { UserDataContext } from "../../../context/UserDataContext"
 
 const Dashboard: React.FC<{uid: string}> = ({uid}) => {
     const history = useHistory()
-    
+    const {signoutUser} = useContext(UserDataContext)
     const [isOption, setIsOption] = useState(false);
     const notifRef = useRef<HTMLIonPopoverElement>(null)
     const [notifOpen, setNotifOpen] = useState<boolean>(false)
@@ -24,6 +24,7 @@ const Dashboard: React.FC<{uid: string}> = ({uid}) => {
         setIsOption(false)
         if (action === 'signout') {
             await onSignOut()
+            signoutUser()
             history.push('/signin')
         }
     }
@@ -58,7 +59,7 @@ const Dashboard: React.FC<{uid: string}> = ({uid}) => {
 
     return (
         <>
-            <Menu data={userData}/>
+            <Menu />
             <IonPage id="main-content">
             <IonActionSheet
                 mode="ios"

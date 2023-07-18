@@ -1,15 +1,22 @@
 import { IonAvatar, IonButton, IonContent, IonIcon, IonImg, IonInput, IonItem, IonItemDivider, IonLabel, IonPage } from '@ionic/react'
-import './Profile.scss'
-import avatar from '../../../assets/avatar.jpeg'
+import { UserDataContext, UserDataDoc } from '../../../context/UserDataContext'
 import { createOutline, settingsOutline } from 'ionicons/icons'
-import { useHistory, useLocation, useRouteMatch } from 'react-router'
+import { useHistory, useRouteMatch } from 'react-router'
+import { useContext, useState, useEffect } from 'react'
+import avatar from '../../../assets/avatar.jpeg'
 import Header from '../../../components/Header'
+import './Profile.scss'
 
 
 const Profile: React.FC = () => {
     const match = useRouteMatch()
-    const location = useLocation()
     const history = useHistory()
+    const [ user, setUser] = useState<UserDataDoc>()
+    const {userData} = useContext(UserDataContext)
+
+    useEffect(()=>{
+        setUser(userData)
+    })
 
     return (
         <IonPage>
@@ -25,8 +32,8 @@ const Profile: React.FC = () => {
                             <IonImg src={avatar} alt='' ></IonImg>
                         </IonAvatar>
                         <span className='desc'>
-                            <h2>Rudolph Angelo C. De Villa</h2>
-                            <p>ID: 123456780</p>
+                            <h2>{user?.firstname + " " + user?.lastname}</h2>
+                            <p>ID: {user?.userId}</p>
                         </span>
                         <span className='follow'>
                             <IonItem button>
@@ -57,27 +64,27 @@ const Profile: React.FC = () => {
                         </IonItemDivider>
                         <IonItem> 
                             <IonLabel position='stacked'>Email</IonLabel>
-                            <IonInput className='disabled' value='devillarudolphangelo@gmail.com' ></IonInput>
+                            <IonInput aria-label='email' className='disabled' value={user?.email} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Firstname</IonLabel>
-                            <IonInput value='Rudolph' ></IonInput>
+                            <IonInput aria-label='firstname' value={user?.firstname} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Lastname</IonLabel>
-                            <IonInput value='De Villa' ></IonInput>
+                            <IonInput aria-label='lastname' value={user?.lastname} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Gender</IonLabel>
-                            <IonInput value='Male' ></IonInput>
+                            <IonInput aria-label='gender' value={user?.gender} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Date of Birth</IonLabel>
-                            <IonInput value='09-12-2000' ></IonInput>
+                            <IonInput aria-label='birthday' value={user?.birthday} ></IonInput>
                         </IonItem>
                         <IonItem> 
                             <IonLabel position='stacked'>Interest</IonLabel>
-                            <IonInput value='One, Two, Three'></IonInput>
+                            <IonInput aria-label='interest' value={user?.interest.join(", ")}></IonInput>
                         </IonItem>
 
                     </div>

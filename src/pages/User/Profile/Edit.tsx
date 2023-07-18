@@ -2,8 +2,17 @@ import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonItemD
 import { arrowBackSharp, cameraOutline, copyOutline } from "ionicons/icons"
 import './Profile.scss'
 import Header from "../../../components/Header"
+import { useState, useContext, useEffect } from "react"
+import { UserDataDoc, UserDataContext } from "../../../context/UserDataContext"
 
 const Edit: React.FC = () => {
+    
+    const [ user, setUser] = useState<UserDataDoc>()
+    const {userData} = useContext(UserDataContext)
+
+    useEffect(()=>{
+        setUser(userData)
+    })
 
     return (
         <IonPage>
@@ -18,26 +27,26 @@ const Edit: React.FC = () => {
                         <IonItemDivider>About Me</IonItemDivider>
                         <IonItem lines='none' button detail>
                             <IonLabel slot='start'>Firstname</IonLabel>
-                            <IonLabel slot='end'>Rudolph</IonLabel>
+                            <IonLabel slot='end'>{user?.firstname}</IonLabel>
                         </IonItem>
                         <IonItem lines='none' button detail>
                             <IonLabel slot='start'>Lastname</IonLabel>
-                            <IonLabel slot='end'>De Villa</IonLabel>
+                            <IonLabel slot='end'>{user?.lastname}</IonLabel>
                         </IonItem>
                         <IonItem lines='none' button detail>
                             <IonLabel slot='start'>Gender</IonLabel>
-                            <IonLabel slot='end'>Male</IonLabel>
+                            <IonLabel slot='end'>{user?.gender}</IonLabel>
                         </IonItem>
                         <IonItem lines='none' button detail>
                             <IonLabel slot='start'>Birthday</IonLabel>
-                            <IonLabel slot='end'>2002-11-02</IonLabel>
+                            <IonLabel slot='end'>{user?.birthday}</IonLabel>
                         </IonItem>
                         <IonItem lines='none' button detail>
                             <IonLabel slot='start'>Bio</IonLabel>
                             <IonLabel slot='end'>Hello World!!!</IonLabel>
                         </IonItem>
                         <IonItem lines='none' button detail>
-                            <IonLabel slot='start'>Interest</IonLabel>
+                            <IonLabel slot='start'>{user?.interest.join(", ")}</IonLabel>
                             <IonLabel slot='end'>InterestOne, InterestTwo</IonLabel>
                         </IonItem>
                         
