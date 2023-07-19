@@ -5,6 +5,7 @@ import { call, mic, micOff, videocam, videocamOff } from 'ionicons/icons'
 import { openUserMedia } from '../../utils/media'
 import { useHistory } from 'react-router'
 import * as faceapi from 'face-api.js';
+import { loadFaceDetectionModels } from '../../utils/facedetection'
 
 
 const Meet: React.FC = () => {
@@ -18,19 +19,13 @@ const Meet: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     
     useEffect(() => {
+        
         const loadModelsAndDetectExpressions = async () => {
         const video = localVideoRef.current;
         const canvas = canvasRef.current;
-
+        loadFaceDetectionModels();
         if (!video || !canvas) return;
-
-        await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-        faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-        ]);
-
+            
         const drawExpressions = async () => {
         if (video.readyState === 4 && !video.paused && !video.ended) {
             const detections = await faceapi
@@ -109,9 +104,10 @@ const Meet: React.FC = () => {
         <IonPage>
         <IonContent fullscreen>
             <div className="meet-container column">
+            <canvas ref={canvasRef} className="face-canvas"></canvas>
             <video id="localVideo" muted autoPlay playsInline ref={localVideoRef}></video>
             <video id="remoteVideo" height="800" width="500" autoPlay playsInline ref={remoteVideoRef}></video>
-            <canvas ref={canvasRef} className="face-canvas"></canvas>
+         
             <div className="buttons">
                 <IonButton fill='outline' color='light' onClick={toggleCamera}>
                     <IonIcon icon={ video ? videocam : videocamOff } ></IonIcon>
