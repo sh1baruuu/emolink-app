@@ -21,10 +21,17 @@ const Meet: React.FC = () => {
     useEffect(() => {
         
         const loadModelsAndDetectExpressions = async () => {
-        const video = localVideoRef.current;
-        const canvas = canvasRef.current;
-        loadFaceDetectionModels();
-        if (!video || !canvas) return;
+         await loadFaceDetectionModels();
+
+            const video = localVideoRef.current;
+            const canvas = canvasRef.current;
+      
+            if (!video || !canvas) return;
+      
+            const { videoWidth, videoHeight } = video;
+      
+            canvas.width = videoWidth;
+            canvas.height = videoHeight;
             
         const drawExpressions = async () => {
         if (video.readyState === 4 && !video.paused && !video.ended) {
