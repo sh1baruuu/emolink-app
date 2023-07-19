@@ -20,17 +20,17 @@
         position: absolute;
         
     }
-    .face-canvas {
+   .face-canvas {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%; // Adjust the width as needed
-        height: auto; // Adjust the height as needed
-        max-height: 80vh; // Limit the maximum height to 80% of the viewport height, adjust as needed
+        width: 800px; // Adjust the width as needed
+        height: 100%; // Adjust the height as needed
         z-index: 1; // Adjust the z-index as needed
-        object-fit: contain;
+        object-fit: fill;
       }
+    
     .buttons {
         display: flex;
         align-items: center;
